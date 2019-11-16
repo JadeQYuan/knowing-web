@@ -29,9 +29,7 @@ export default {
   },
   methods: {
     add() {
-      addTag(this.formModel).then(res => {
-        console.log(res);
-      });
+      addTag(this.formModel);
     }
   }
 };

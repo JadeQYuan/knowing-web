@@ -5,7 +5,5 @@ export function getTagList(param) {
 }
 
 export function addTag(data) {
-  Axios.post("http://localhost:9000/tag", data).then(res => {
-      console.log(res);
-  });
+  return Axios.post("http://localhost:9000/tag", data);
 }
