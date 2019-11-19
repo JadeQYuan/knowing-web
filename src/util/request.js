@@ -1,10 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:9000";
-// let BASE_URL = "http://knowing.zicp.vip/knowing-server";
-
 const axiosInstance = axios.create({
-    baseURL: BASE_URL,
+    baseURL: process.env.VUE_APP_API_BASE_URL,
 });
 
 // Add a request interceptor
