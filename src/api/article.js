@@ -1,14 +1,24 @@
-import Axios from "axios";
-import BASE_URL from "./baseApi";
+import request from "@/util/request";
 
 export function getArticleList(param) {
-  return Axios.get(`${BASE_URL}/article`, { params: param });
+    return request({
+        method: "GET",
+        url: "/article",
+        params: param,
+    });
 }
 
 export function addArticle(data) {
-  return Axios.post(`${BASE_URL}/article`, data);
+    return request({
+        method: "POST",
+        url: "/article",
+        data: data,
+    });
 }
 
 export function getInfo(id) {
-  return Axios.get(`${BASE_URL}/article/${id}`);
+    return request({
+        method: "POST",
+        url: `/article/${id}`,
+    });
 }

@@ -1,10 +1,17 @@
-import Axios from "axios";
-import BASE_URL from "./baseApi";
+import request from "@/util/request";
 
 export function getTagList(param) {
-  return Axios.get(`${BASE_URL}/tag`, { params: param });
+    return request({
+        method: "GET",
+        url: "/tag",
+        params: param,
+    });
 }
 
 export function addTag(data) {
-  return Axios.post(`${BASE_URL}/tag`, data);
+    return request({
+        method: "POST",
+        url: "/tag",
+        data: data,
+    });
 }

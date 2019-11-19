@@ -1,14 +1,24 @@
-import Axios from "axios";
-import BASE_URL from "./baseApi";
+import request from "@/util/request";
 
 export function getNoteList(param) {
-  return Axios.get(`${BASE_URL}/note`, { params: param });
+    return request({
+        method: "GET",
+        url: "/note",
+        params: param,
+    });
 }
 
 export function addNote(data) {
-  return Axios.post(`${BASE_URL}/note`, data);
+    return request({
+        method: "POST",
+        url: "/note",
+        data: data,
+    });
 }
 
 export function getInfo(id) {
-  return Axios.get(`${BASE_URL}/note/${id}`);
+    return request({
+        method: "POST",
+        url: `/note/${id}`,
+    });
 }

@@ -1,35 +1,41 @@
 <template>
-  <div>
-    <div>{{ model.title }}</div>
-    <mavonEditor :value="model.content"
-                 :subfield=false defaultOpen="preview" :editable=false :toolbarsFlag=false :navigation=true
-    ></mavonEditor>
-<!--    <div>{{ model.content }}</div>-->
-  </div>
+    <div>
+        <div>{{ model.title }}</div>
+        <mavonEditor
+            :value="model.content"
+            :subfield="false"
+            defaultOpen="preview"
+            :editable="false"
+            :toolbarsFlag="false"
+            :navigation="true"
+        ></mavonEditor>
+        <!--    <div>{{ model.content }}</div>-->
+    </div>
 </template>
 
 <script>
-  import { mavonEditor } from 'mavon-editor';
+import { mavonEditor } from "mavon-editor";
 import { getInfo } from "@/api/note";
+
 export default {
-  name: "noteView",
-  data() {
-    return {
-      model : {
-        id : "",
-        title : "",
-        content : ""
-      }
-    };
-  },
-  components : {
-    mavonEditor
-  },
-  mounted() {
-    getInfo(this.$route.params.id).then(data => {
-      this.model = data.data;
-    });
-  },
+    name: "noteView",
+    data() {
+        return {
+            model: {
+                id: "",
+                title: "",
+                content: "",
+            },
+        };
+    },
+    components: {
+        mavonEditor,
+    },
+    mounted() {
+        getInfo(this.$route.params.id).then(data => {
+            this.model = data.data;
+        });
+    },
 };
 </script>
 
