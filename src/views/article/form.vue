@@ -4,12 +4,17 @@
             <el-form-item> title : <el-input v-model="formModel.title"></el-input> </el-form-item>
             <el-form-item>
                 tags :
-                <el-checkbox-group v-model="formModel.tags">
+                <el-checkbox-group v-model="formModel.tags" v-show="tagSelectable">
                     <template v-for="tag in tags">
                         <el-checkbox :label="tag" :key="tag.id">{{ tag.name }}</el-checkbox>
                     </template>
                 </el-checkbox-group>
-                <el-tag v-for="tag in formModel.tags" :key="tag.id" closable type="info">
+                <el-tag
+                    v-for="tag in formModel.tags"
+                    :key="tag.id"
+                    closable
+                    @close="handleClose(tag)"
+                >
                     {{ tag.name }}
                 </el-tag>
             </el-form-item>
@@ -18,7 +23,7 @@
                 <mavon-editor v-model="formModel.content"></mavon-editor>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="add">立即创建</el-button>
+                <el-button type="primary" @click="submit">{{ btnName }}</el-button>
                 <el-button>取消</el-button>
             </el-form-item>
         </el-form>
@@ -29,33 +34,83 @@
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 import { getTagList } from "@/api/tag";
-import { addArticle } from "@/api/article";
+import { addArticle, getInfo, updateArticle } from "@/api/article";
 
 export default {
     name: "articleForm",
+    computed: {
+        btnName: function() {
+            return this.id ? "更新" : "创建";
+        },
+        tagSelectable: function() {
+            return !this.id;
+        }
+    },
     data() {
         return {
+            id: "",
             formModel: {
                 title: "",
                 tags: [],
-                content: "",
+                content: ""
             },
-            tags: [],
+            tags: []
         };
     },
     components: {
-        mavonEditor,
+        mavonEditor
     },
     mounted() {
-        getTagList().then(data => {
-            this.tags = data.data;
-        });
+        const id = this.$route.params.id;
+        this.id = id;
+        if (id) {
+            getInfo(id)
+                .then(data => (this.formModel = data))
+                .catch(error => {
+                    this.$alert(error, {
+                        confirmButtonText: "确定"
+                    });
+                });
+        } else {
+            getTagList()
+                .then(data => {
+                    this.tags = data;
+                })
+                .catch(error => {
+                    this.$alert(error, {
+                        confirmButtonText: "确定"
+                    });
+                });
+        }
     },
     methods: {
-        add() {
-            addArticle(this.formModel);
+        submit() {
+            if (this.id) {
+                updateArticle(this.id, this.formModel)
+                    .then(() => {
+                        this.$router.go(-1);
+                    })
+                    .catch(error => {
+                        this.$alert(error, {
+                            confirmButtonText: "确定"
+                        });
+                    });
+            } else {
+                addArticle(this.formModel)
+                    .then(() => {
+                        this.$router.go(-1);
+                    })
+                    .catch(error => {
+                        this.$alert(error, {
+                            confirmButtonText: "确定"
+                        });
+                    });
+            }
         },
-    },
+        handleClose(tag) {
+            this.formModel.tags.remove(tag);
+        }
+    }
 };
 </script>
 

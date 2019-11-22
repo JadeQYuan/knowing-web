@@ -4,7 +4,7 @@ export function getArticleList(param) {
     return request({
         method: "GET",
         url: "/article",
-        params: param,
+        params: param
     });
 }
 
@@ -12,13 +12,21 @@ export function addArticle(data) {
     return request({
         method: "POST",
         url: "/article",
-        data: data,
+        data: data
     });
 }
 
 export function getInfo(id) {
     return request({
-        method: "POST",
+        method: "GET",
+        url: `/article/${id}`
+    });
+}
+
+export function updateArticle(id, data) {
+    return request({
+        method: "PUT",
         url: `/article/${id}`,
+        data: data
     });
 }

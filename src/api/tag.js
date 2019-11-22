@@ -4,7 +4,7 @@ export function getTagList(param) {
     return request({
         method: "GET",
         url: "/tag",
-        params: param,
+        params: param
     });
 }
 
@@ -12,6 +12,13 @@ export function addTag(data) {
     return request({
         method: "POST",
         url: "/tag",
-        data: data,
+        data: data
+    });
+}
+
+export function getTagInfo(id) {
+    return request({
+        method: "GET",
+        url: `/tag/${id}`
     });
 }

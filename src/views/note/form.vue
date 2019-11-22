@@ -7,7 +7,7 @@
                 <mavonEditor v-model="formModel.content"></mavonEditor>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="add">立即创建</el-button>
+                <el-button type="primary" @click="submit">{{ btnName }}</el-button>
                 <el-button>取消</el-button>
             </el-form-item>
         </el-form>
@@ -17,26 +17,65 @@
 <script>
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
-import { addNote } from "@/api/note";
+import { addNote, getInfo, updateNote } from "@/api/note";
 
 export default {
     name: "noteForm",
+    computed: {
+        btnName: function() {
+            return this.id ? "更新" : "创建";
+        }
+    },
     data() {
         return {
+            id: "",
             formModel: {
                 title: "",
-                content: "",
-            },
+                content: ""
+            }
         };
     },
     components: {
-        mavonEditor,
+        mavonEditor
+    },
+    mounted() {
+        const id = this.$route.params.id;
+        this.id = id;
+        if (id) {
+            getInfo(id)
+                .then(data => (this.formModel = data))
+                .catch(error => {
+                    this.$alert(error, {
+                        confirmButtonText: "确定"
+                    });
+                });
+        }
     },
     methods: {
-        add() {
-            addNote(this.formModel);
-        },
-    },
+        submit() {
+            if (this.id) {
+                updateNote(this.id, this.formModel)
+                    .then(() => {
+                        this.$router.go(-1);
+                    })
+                    .catch(error => {
+                        this.$alert(error, {
+                            confirmButtonText: "确定"
+                        });
+                    });
+            } else {
+                addNote(this.formModel)
+                    .then(() => {
+                        this.$router.go(-1);
+                    })
+                    .catch(error => {
+                        this.$alert(error, {
+                            confirmButtonText: "确定"
+                        });
+                    });
+            }
+        }
+    }
 };
 </script>
 

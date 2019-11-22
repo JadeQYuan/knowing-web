@@ -1,12 +1,13 @@
 <template>
     <el-container>
-        <router-link to="/noteForm">ADD</router-link>
+        <router-link to="/note/add">ADD</router-link>
         <el-main>
-            <span v-for="note in notes" :key="note.id" @click="info(note.id)">
+            <span v-for="note in notes" :key="note.id">
                 <el-card class="box-card">
-                    <div slot="header" class="clearfix">
+                    <div slot="header" class="clearfix" @click="info(note.id)">
                         <p>{{ note.title }}</p>
                     </div>
+                    <span @click="modify(note.id)"><button>修改</button></span>
                     <div>
                         {{ note.content }}
                     </div>
@@ -23,19 +24,28 @@ export default {
     name: "noteList",
     data() {
         return {
-            notes: [],
+            notes: []
         };
     },
     mounted() {
-        getNoteList().then(data => {
-            this.notes = data.data;
-        });
+        getNoteList()
+            .then(data => {
+                this.notes = data;
+            })
+            .catch(error => {
+                this.$alert(error, {
+                    confirmButtonText: "确定"
+                });
+            });
     },
     methods: {
         info(id) {
-            this.$router.push(`/note/${id}`);
+            this.$router.push(`/note/${id}/view`);
         },
-    },
+        modify(id) {
+            this.$router.push(`/note/${id}`);
+        }
+    }
 };
 </script>
 

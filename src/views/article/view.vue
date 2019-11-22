@@ -30,18 +30,24 @@ export default {
                 id: "",
                 title: "",
                 tags: [],
-                content: "",
-            },
+                content: ""
+            }
         };
     },
     components: {
-        mavonEditor,
+        mavonEditor
     },
     mounted() {
-        getInfo(this.$route.params.id).then(data => {
-            this.model = data.data;
-        });
-    },
+        getInfo(this.$route.params.id)
+            .then(data => {
+                this.model = data;
+            })
+            .catch(error => {
+                this.$alert(error, {
+                    confirmButtonText: "确定"
+                });
+            });
+    }
 };
 </script>
 
