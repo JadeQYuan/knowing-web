@@ -1,7 +1,7 @@
 <template>
     <el-container>
         <el-header>
-            <div>Knowing HOW, Then Knowing WHY!</div>
+            <div>Knowing HOW, Then Knowing WHY<span @click="manage">!</span></div>
         </el-header>
         <el-main>
             <el-row :gutter="20">
@@ -86,6 +86,11 @@ export default {
                     confirmButtonText: "确定"
                 });
             });
+    },
+    methods: {
+        manage() {
+            this.$router.push("/manage");
+        }
     }
 };
 </script>
