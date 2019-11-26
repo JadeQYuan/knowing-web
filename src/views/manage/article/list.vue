@@ -1,6 +1,6 @@
 <template>
     <el-container>
-        <router-link to="/article/add">ADD</router-link>
+        <router-link to="/manage/article/add">ADD</router-link>
         <el-main>
             <span v-for="article in articles" :key="article.id">
                 <el-card class="box-card">
@@ -45,10 +45,10 @@ export default {
     },
     methods: {
         info(id) {
-            this.$router.push(`/article/${id}/view`);
+            this.$router.push(`/manage/article/${id}/view`);
         },
         modify(id) {
-            this.$router.push(`/article/${id}`);
+            this.$router.push(`/manage/article/${id}`);
         }
     }
 };

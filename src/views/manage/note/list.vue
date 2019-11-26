@@ -1,6 +1,6 @@
 <template>
     <el-container>
-        <router-link to="/note/add">ADD</router-link>
+        <router-link to="/manage/note/add">ADD</router-link>
         <el-main>
             <span v-for="note in notes" :key="note.id">
                 <el-card class="box-card">
@@ -40,10 +40,10 @@ export default {
     },
     methods: {
         info(id) {
-            this.$router.push(`/note/${id}/view`);
+            this.$router.push(`/manage/note/${id}/view`);
         },
         modify(id) {
-            this.$router.push(`/note/${id}`);
+            this.$router.push(`/manage/note/${id}`);
         }
     }
 };

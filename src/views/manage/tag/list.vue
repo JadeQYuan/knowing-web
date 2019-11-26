@@ -1,6 +1,6 @@
 <template>
     <el-container>
-        <router-link to="/tag/add">ADD</router-link>
+        <router-link to="/manage/tag/add">ADD</router-link>
         <el-main>
             <span v-for="tag in tags" :key="tag.id" @click="info(tag.id)">
                 <el-card class="box-card">
@@ -37,7 +37,7 @@ export default {
     },
     methods: {
         info(id) {
-            this.$router.push(`/tag/${id}`);
+            this.$router.push(`/manage/tag/${id}`);
         }
     }
 };
