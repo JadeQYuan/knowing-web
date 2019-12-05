@@ -8,6 +8,14 @@ export function getArticleList(param) {
     });
 }
 
+export function getArticlePage(param) {
+    return request({
+        method: "GET",
+        url: "/article/paging",
+        params: param
+    });
+}
+
 export function addArticle(data) {
     return request({
         method: "POST",

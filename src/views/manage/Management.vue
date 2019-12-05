@@ -10,12 +10,10 @@
                         <el-menu
                             default-active="2"
                             class="el-menu-vertical-demo"
-                            @open="handleOpen"
-                            @close="handleClose"
                             background-color="#a9b7c6"
                             text-color="#dbdbdb"
                             active-text-color="#ffd04b"
-                            router="true"
+                            :router="true"
                         >
                             <el-submenu index="1">
                                 <template slot="title">
@@ -49,10 +47,7 @@
 <script>
 export default {
     name: "Management",
-    methods: {
-        // handleOpen(key, keyPath) {},
-        // handleClose(key, keyPath) {}
-    }
+    methods: {}
 };
 </script>
 
@@ -64,7 +59,7 @@ export default {
         text-align: center;
         background-color: #a9b7c6;
         color: #dbdbdb;
-        font-size: 50px;
+        font-size: 45px;
     }
 }
 </style>

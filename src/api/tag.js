@@ -8,6 +8,14 @@ export function getTagList(param) {
     });
 }
 
+export function getTagPage(param) {
+    return request({
+        method: "GET",
+        url: "/tag/paging",
+        params: param
+    });
+}
+
 export function addTag(data) {
     return request({
         method: "POST",

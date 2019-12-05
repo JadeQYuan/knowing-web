@@ -8,6 +8,14 @@ export function getNoteList(param) {
     });
 }
 
+export function getNotePage(param) {
+    return request({
+        method: "GET",
+        url: "/note/paging",
+        params: param
+    });
+}
+
 export function addNote(data) {
     return request({
         method: "POST",
