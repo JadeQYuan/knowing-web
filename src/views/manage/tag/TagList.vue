@@ -40,7 +40,7 @@
 import { getTagPage } from "@/api/tag";
 
 export default {
-    name: "tagList",
+    name: "TagList",
     data() {
         return {
             tableData: [],

@@ -20,7 +20,7 @@ import "mavon-editor/dist/css/index.css";
 import { addNote, getInfo, updateNote } from "@/api/note";
 
 export default {
-    name: "noteForm",
+    name: "NoteForm",
     computed: {
         btnName: function() {
             return this.id ? "更新" : "创建";

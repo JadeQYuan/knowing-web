@@ -37,7 +37,7 @@ import { getTagList } from "@/api/tag";
 import { addArticle, getInfo, updateArticle } from "@/api/article";
 
 export default {
-    name: "articleForm",
+    name: "ArticleForm",
     computed: {
         btnName: function() {
             return this.id ? "更新" : "创建";

@@ -17,7 +17,7 @@
 import { addTag, getTagInfo } from "@/api/tag";
 
 export default {
-    name: "tagForm",
+    name: "TagForm",
     data() {
         return {
             id: "",

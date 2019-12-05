@@ -13,11 +13,6 @@
             </el-form>
             <el-table :data="tableData" max-height="1200" border style="width: 100%">
                 <el-table-column prop="title" label="标题" width="300"></el-table-column>
-                <el-table-column label="标签">
-                    <template v-slot="scope">
-                        <el-tag v-for="tag in scope.row.tags" :key="tag.id">{{ tag.name }}</el-tag>
-                    </template>
-                </el-table-column>
                 <el-table-column :formatter="simple" label="内容"></el-table-column>
                 <el-table-column fixed="right" label="操作" width="100">
                     <template v-slot="scope">
@@ -45,13 +40,12 @@
 </template>
 
 <script>
-import { getArticlePage } from "@/api/article";
+import { getNotePage } from "@/api/note";
 
 export default {
-    name: "articleList",
+    name: "NoteList",
     data() {
         return {
-            articles: [],
             tableData: [],
             query: {
                 pageNum: 1,
@@ -67,17 +61,17 @@ export default {
         this.getList();
     },
     methods: {
+        add() {
+            this.$router.push(`/manage/note/add`);
+        },
         info(row) {
             this.$router.push(`/manage/article/${row.id}/view`);
         },
         modify(row) {
             this.$router.push(`/manage/article/${row.id}`);
         },
-        add() {
-            this.$router.push(`/manage/tag/add`);
-        },
         getList() {
-            getArticlePage(this.query)
+            getNotePage(this.query)
                 .then(data => {
                     this.tableData = data.list;
                     this.page.total = data.total;

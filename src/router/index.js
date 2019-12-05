@@ -7,7 +7,7 @@ const routes = [
     {
         path: "/",
         name: "home",
-        component: () => import("@/views/major/Home.vue")
+        component: () => import("@/views/major/MainHome.vue")
     },
     {
         path: "/manage",
@@ -17,57 +17,57 @@ const routes = [
             {
                 path: "tag",
                 name: "tagList",
-                component: () => import("@/views/manage/tag/list.vue")
+                component: () => import("@/views/manage/tag/TagList.vue")
             },
             {
                 path: "tag/add",
                 name: "tagAdd",
-                component: () => import("@/views/manage/tag/form.vue")
+                component: () => import("@/views/manage/tag/TagForm.vue")
             },
             {
                 path: "tag/:id",
                 name: "tagModify",
-                component: () => import("@/views/manage/tag/form.vue")
+                component: () => import("@/views/manage/tag/TagForm.vue")
             },
             {
                 path: "article",
                 name: "articleList",
-                component: () => import("@/views/manage/article/list.vue")
+                component: () => import("@/views/manage/article/ArticleList.vue")
             },
             {
                 path: "article/add",
                 name: "articleAdd",
-                component: () => import("@/views/manage/article/form.vue")
+                component: () => import("@/views/manage/article/ArticleForm.vue")
             },
             {
                 path: "article/:id",
                 name: "articleModify",
-                component: () => import("@/views/manage/article/form.vue")
+                component: () => import("@/views/manage/article/ArticleForm.vue")
             },
             {
                 path: "article/:id/view",
                 name: "articleView",
-                component: () => import("@/views/manage/article/view.vue")
+                component: () => import("@/views/manage/article/ArticleView.vue")
             },
             {
                 path: "note",
                 name: "noteList",
-                component: () => import("@/views/manage/note/list.vue")
+                component: () => import("@/views/manage/note/NoteList.vue")
             },
             {
                 path: "note/add",
                 name: "noteAdd",
-                component: () => import("@/views/manage/note/form.vue")
+                component: () => import("@/views/manage/note/NoteForm.vue")
             },
             {
                 path: "note/:id",
                 name: "noteModify",
-                component: () => import("@/views/manage/note/form.vue")
+                component: () => import("@/views/manage/note/NoteForm.vue")
             },
             {
                 path: "note/:id/view",
                 name: "noteView",
-                component: () => import("@/views/manage/note/view.vue")
+                component: () => import("@/views/manage/note/NoteView.vue")
             }
         ]
     }

@@ -1,12 +1,6 @@
 <template>
     <div>
         <div>{{ model.title }}</div>
-        <div>
-            <el-tag v-for="tag in model.tags" :key="tag.id">
-                {{ tag.name }}
-            </el-tag>
-        </div>
-        <!--    <div>{{ model.content }}</div>-->
         <mavonEditor
             :value="model.content"
             :subfield="false"
@@ -15,21 +9,21 @@
             :toolbarsFlag="false"
             :navigation="true"
         ></mavonEditor>
+        <!--    <div>{{ model.content }}</div>-->
     </div>
 </template>
 
 <script>
 import { mavonEditor } from "mavon-editor";
-import { getInfo } from "@/api/article";
+import { getInfo } from "@/api/note";
 
 export default {
-    name: "articleView",
+    name: "NoteView",
     data() {
         return {
             model: {
                 id: "",
                 title: "",
-                tags: [],
                 content: ""
             }
         };
