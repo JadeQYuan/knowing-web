@@ -24,7 +24,7 @@
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submit">{{ btnName }}</el-button>
-                <el-button>取消</el-button>
+                <el-button @click="back">取消</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -109,6 +109,9 @@ export default {
         },
         handleClose(tag) {
             this.formModel.tags.remove(tag);
+        },
+        back() {
+            this.$router.go(-1);
         }
     }
 };
