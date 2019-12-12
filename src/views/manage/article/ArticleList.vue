@@ -74,7 +74,7 @@ export default {
             this.$router.push(`/manage/article/${row.id}`);
         },
         add() {
-            this.$router.push(`/manage/tag/add`);
+            this.$router.push(`/manage/article/add`);
         },
         getList() {
             getArticlePage(this.query)
