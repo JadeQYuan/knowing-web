@@ -65,10 +65,10 @@ export default {
             this.$router.push(`/manage/note/add`);
         },
         info(row) {
-            this.$router.push(`/manage/article/${row.id}/view`);
+            this.$router.push(`/manage/note/${row.id}/view`);
         },
         modify(row) {
-            this.$router.push(`/manage/article/${row.id}`);
+            this.$router.push(`/manage/note/${row.id}`);
         },
         getList() {
             getNotePage(this.query)
