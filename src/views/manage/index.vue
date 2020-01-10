@@ -1,8 +1,5 @@
 <template>
     <el-container>
-        <el-header>
-            <div>Knowing HOW, Then Knowing WHY!</div>
-        </el-header>
         <el-container>
             <el-aside>
                 <el-row>

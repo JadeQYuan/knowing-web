@@ -13,7 +13,7 @@
 <script>
 import { getTagList } from "@/api/tag";
 export default {
-    name: "MainTag",
+    name: "HomeTag",
     data() {
         return {
             tags: []

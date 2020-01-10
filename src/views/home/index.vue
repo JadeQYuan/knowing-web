@@ -1,8 +1,5 @@
 <template>
     <el-container>
-        <el-header>
-            <div>Knowing HOW, Then Knowing WHY<span @click="manage">!</span></div>
-        </el-header>
         <el-main>
             <el-row :gutter="20">
                 <el-col :span="2" :offset="3">
@@ -21,13 +18,13 @@
 </template>
 
 <script>
-import MainTag from "./MainTag";
-import MainImage from "./MainImage";
-import MainArticle from "./MainArticle";
-import MainAbout from "./MainAbout";
+import MainTag from "./components/HomeTag";
+import MainImage from "./components/HomeImage";
+import MainArticle from "./components/HomeArticle";
+import MainAbout from "./components/HomeAbout";
 
 export default {
-    name: "MainHome",
+    name: "Home",
     components: {
         MainTag,
         MainImage,
@@ -43,16 +40,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.el-header {
-    background-color: #a9b7c6;
-    div {
-        width: 100%;
-        text-align: center;
-        background-color: #a9b7c6;
-        color: #dbdbdb;
-        font-size: 50px;
-    }
-}
 .el-main {
     .el-divider {
         background-color: #0977ab;

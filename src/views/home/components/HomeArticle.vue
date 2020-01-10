@@ -23,7 +23,7 @@
 import { getArticlePage } from "@/api/article";
 
 export default {
-    name: "MainArticle",
+    name: "HomeArticle",
     data() {
         return {
             articles: [],
