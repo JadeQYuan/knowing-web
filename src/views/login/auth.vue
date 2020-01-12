@@ -13,9 +13,8 @@ export default {
     },
     mounted: function() {
         if (this.$route.query.code && this.$route.query.state) {
-            login(this.$route.query).then(data => {
+            login(this.$route.query).then(() => {
                 // TODO token保存
-                console.log(data);
                 this.$router.replace("/");
             });
         }
