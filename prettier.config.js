@@ -4,9 +4,7 @@ module.exports = {
     // Specify the number of spaces per indentation-level. // 2
     tabWidth: 4,
     // Use single quotes instead of double quotes. // false
-    singleQuote: false,
-    // End of Line // auto
-    endOfLine: "lf"
+    singleQuote: false
 
     // Indent lines with tabs instead of spaces.
     // useTabs: false,
@@ -20,4 +18,6 @@ module.exports = {
     // alwaysParens: "avoid",
     // Whether or not to indent the code inside <script> and <style> tags in Vue files.
     // vueIndentScriptAndStyle: false,
+    // End of Line // auto
+    // endOfLine: "lf"
 };

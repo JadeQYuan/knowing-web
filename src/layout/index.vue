@@ -1,15 +1,7 @@
 <template>
     <el-container>
         <el-header>
-            <div>
-                Knowing HOW, Then Knowing WHY!
-                <span @click="home">首页</span>
-                <span @click="special">专栏</span>
-                <span>搜索</span>
-                <span @click="login">登录</span>
-                <span @click="manage">创建</span>
-                <span>我的</span>
-            </div>
+            <nav-bar />
         </el-header>
         <el-main>
             <router-view />
@@ -21,21 +13,11 @@
 </template>
 
 <script>
+import NavBar from "@/layout/components/NavBar";
 export default {
     name: "index",
-    methods: {
-        home() {
-            this.$router.push("/");
-        },
-        special() {
-            this.$router.push("/special");
-        },
-        login() {
-            this.$router.push("/login");
-        },
-        manage() {
-            this.$router.push("/manage");
-        }
+    components: {
+        NavBar
     }
 };
 </script>
@@ -43,13 +25,11 @@ export default {
 <style scoped lang="scss">
 .el-header {
     background-color: #a9b7c6;
-    div {
-        width: 100%;
-        text-align: center;
-        background-color: #a9b7c6;
-        color: #dbdbdb;
-        font-size: 35px;
-    }
+    padding: 0;
+}
+.el-main {
+    padding: 0;
+    min-height: 88vh;
 }
 .el-footer {
     background-color: #a9b7c6;

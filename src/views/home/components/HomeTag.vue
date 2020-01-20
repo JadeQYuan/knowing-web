@@ -1,6 +1,5 @@
 <template>
     <div class="grid-content bg-purple">
-        <el-divider content-position="left">频道</el-divider>
         <div class="k-tag">
             <div v-for="tag in tags" :key="tag.id">
                 {{ tag.name }}

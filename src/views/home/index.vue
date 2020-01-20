@@ -2,6 +2,7 @@
     <el-container>
         <el-main>
             <el-row :gutter="20">
+                <main-welcome></main-welcome>
                 <el-col :span="2" :offset="3">
                     <main-tag></main-tag>
                 </el-col>
@@ -18,6 +19,7 @@
 </template>
 
 <script>
+import MainWelcome from "./components/HomeWelcome";
 import MainTag from "./components/HomeTag";
 import MainImage from "./components/HomeImage";
 import MainArticle from "./components/HomeArticle";
@@ -26,6 +28,7 @@ import MainAbout from "./components/HomeAbout";
 export default {
     name: "Home",
     components: {
+        MainWelcome,
         MainTag,
         MainImage,
         MainArticle,
@@ -41,6 +44,7 @@ export default {
 
 <style scoped lang="scss">
 .el-main {
+    padding: 0;
     .el-divider {
         background-color: #0977ab;
     }
