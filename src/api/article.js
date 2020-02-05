@@ -3,7 +3,7 @@ import request from "@/util/request";
 export function getArticleList(param) {
     return request({
         method: "GET",
-        url: "/article",
+        url: "/articles",
         params: param
     });
 }
@@ -11,7 +11,7 @@ export function getArticleList(param) {
 export function getArticlePage(param) {
     return request({
         method: "GET",
-        url: "/article/paging",
+        url: "/articles/paging",
         params: param
     });
 }
@@ -19,7 +19,7 @@ export function getArticlePage(param) {
 export function addArticle(data) {
     return request({
         method: "POST",
-        url: "/article",
+        url: "/articles",
         data: data
     });
 }
@@ -27,14 +27,14 @@ export function addArticle(data) {
 export function getInfo(id) {
     return request({
         method: "GET",
-        url: `/article/${id}`
+        url: `/articles/${id}`
     });
 }
 
 export function updateArticle(id, data) {
     return request({
         method: "PUT",
-        url: `/article/${id}`,
+        url: `/articles/${id}`,
         data: data
     });
 }

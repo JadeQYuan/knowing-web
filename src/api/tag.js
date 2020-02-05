@@ -3,7 +3,7 @@ import request from "@/util/request";
 export function getTagList(param) {
     return request({
         method: "GET",
-        url: "/tag",
+        url: "/tags",
         params: param
     });
 }
@@ -11,7 +11,7 @@ export function getTagList(param) {
 export function getTagPage(param) {
     return request({
         method: "GET",
-        url: "/tag/paging",
+        url: "/tags/paging",
         params: param
     });
 }

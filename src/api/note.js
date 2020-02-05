@@ -3,7 +3,7 @@ import request from "@/util/request";
 export function getNoteList(param) {
     return request({
         method: "GET",
-        url: "/note",
+        url: "/notes",
         params: param
     });
 }
@@ -11,7 +11,7 @@ export function getNoteList(param) {
 export function getNotePage(param) {
     return request({
         method: "GET",
-        url: "/note/paging",
+        url: "/notes/paging",
         params: param
     });
 }
@@ -19,7 +19,7 @@ export function getNotePage(param) {
 export function addNote(data) {
     return request({
         method: "POST",
-        url: "/note",
+        url: "/notes",
         data: data
     });
 }
@@ -27,14 +27,14 @@ export function addNote(data) {
 export function getInfo(id) {
     return request({
         method: "GET",
-        url: `/note/${id}`
+        url: `/notes/${id}`
     });
 }
 
 export function updateNote(id, data) {
     return request({
         method: "PUT",
-        url: `/note/${id}`,
+        url: `/notes/${id}`,
         data: data
     });
 }
