@@ -19,7 +19,7 @@ export default {
         },
         loginUrl(authPlateForm) {
             getLoginUrl(authPlateForm).then(data => {
-                window.open(data, "_blank");
+                window.open(data, "_target");
             });
         }
     }

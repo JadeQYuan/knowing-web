@@ -57,7 +57,7 @@ export default {
                 });
         },
         view(id) {
-            this.$router.push(`/manage/article/${id}/view`);
+            this.$router.push(`/article/${id}`);
         },
         simple: function(res) {
             return res

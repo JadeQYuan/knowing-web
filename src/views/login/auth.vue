@@ -13,8 +13,8 @@ export default {
     },
     mounted: function() {
         if (this.$route.query.code && this.$route.query.state) {
-            login(this.$route.query).then(() => {
-                // TODO token保存
+            login(this.$route.query).then(data => {
+                this.$store.commit("saveToken", { token: data });
                 this.$router.replace("/");
             });
         }

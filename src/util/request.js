@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "../store";
 
 const axiosInstance = axios.create({
     baseURL: process.env.VUE_APP_API_BASE_URL
@@ -8,6 +9,9 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     function(config) {
         // Do something before request is sent
+        if (store.state.token) {
+            config.headers["Token"] = store.state.token;
+        }
         return config;
     },
     function(error) {

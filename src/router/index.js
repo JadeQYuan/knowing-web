@@ -1,9 +1,17 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "../store";
+import { getUserInfo } from "@/api/user";
 
 Vue.use(VueRouter);
 
 import Layout from "@/layout";
+
+// TODO
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err);
+};
 
 const routes = [
     {
@@ -29,6 +37,11 @@ const routes = [
                 path: "/",
                 name: "home",
                 component: () => import("@/views/home")
+            },
+            {
+                path: "article/:id",
+                name: "articleView",
+                component: () => import("@/views/manage/article/ArticleView.vue")
             },
             {
                 path: "special",
@@ -105,6 +118,17 @@ const router = new VueRouter({
     mode: "history",
     base: process.env.BASE_URL,
     routes
+});
+
+router.beforeEach((to, from, next) => {
+    if (store.state.token) {
+        if (!Object.keys(store.state.user).length) {
+            getUserInfo().then(data => {
+                store.commit("setUserInfo", { user: data });
+            });
+        }
+    }
+    next();
 });
 
 export default router;
