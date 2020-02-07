@@ -24,7 +24,7 @@ export default new Vuex.Store({
         },
         clearUser() {
             this.state.user = {};
-            this.$store.commit("clearToken");
+            this.commit("clearToken");
         }
     },
     actions: {},

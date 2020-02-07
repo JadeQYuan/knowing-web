@@ -27,6 +27,9 @@ axiosInstance.interceptors.response.use(
         if (response.status === 200) {
             if (response.data.code === 200) {
                 return response.data.data;
+            } else if (response.data.code === 30101 || response.data.code === 30102) {
+                store.commit("clearUser");
+                return Promise.reject(response.data.message);
             } else {
                 return Promise.reject(response.data.message);
             }
