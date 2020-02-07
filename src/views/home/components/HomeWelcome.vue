@@ -16,7 +16,6 @@ export default {
     methods: {
         aa() {
             let landInTexts = document.querySelectorAll(".landIn");
-            console.log(landInTexts);
             landInTexts.forEach(landInText => {
                 let letters = this.text.split("");
                 landInText.textContent = "";
