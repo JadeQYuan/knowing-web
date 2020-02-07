@@ -89,7 +89,7 @@ export default {
         },
         handleMy(command) {
             if (command === "logout") {
-                console.log(command);
+                this.$store.commit("clearUser");
             } else {
                 this.push(`/my/${command}`);
             }
