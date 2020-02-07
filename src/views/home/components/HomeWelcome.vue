@@ -35,7 +35,7 @@ export default {
 .main {
     display: flex;
     flex-direction: column;
-    height: 80vh;
+    height: 48vh;
     justify-content: center;
     align-items: center;
     background-color: #9b9b9b;

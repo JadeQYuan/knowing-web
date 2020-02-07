@@ -1,9 +1,21 @@
 <template>
     <div>
         <el-form :model="formModel">
-            <el-form-item> title : <el-input v-model="formModel.title"></el-input> </el-form-item>
+            <el-form-item> 标题 : <el-input v-model="formModel.title"></el-input> </el-form-item>
             <el-form-item>
-                tags :
+                专栏 :
+                <el-select v-model="formModel.specialId" placeholder="请选择">
+                    <el-option
+                        v-for="item in specials"
+                        :key="item.id"
+                        :label="item.name"
+                        :value="item.id"
+                    >
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item>
+                标签 :
                 <el-checkbox-group v-model="formModel.tags" v-show="tagSelectable">
                     <template v-for="tag in tags">
                         <el-checkbox :label="tag" :key="tag.id">{{ tag.name }}</el-checkbox>
@@ -34,6 +46,7 @@
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 import { getTagList } from "@/api/tag";
+import { getSpecialList } from "@/api/special";
 import { addArticle, getInfo, updateArticle } from "@/api/article";
 
 export default {
@@ -52,8 +65,10 @@ export default {
             formModel: {
                 title: "",
                 tags: [],
-                content: ""
+                content: "",
+                specialId: ""
             },
+            specials: [],
             tags: []
         };
     },
@@ -75,6 +90,15 @@ export default {
             getTagList()
                 .then(data => {
                     this.tags = data;
+                })
+                .catch(error => {
+                    this.$alert(error, {
+                        confirmButtonText: "确定"
+                    });
+                });
+            getSpecialList()
+                .then(data => {
+                    this.specials = data;
                 })
                 .catch(error => {
                     this.$alert(error, {

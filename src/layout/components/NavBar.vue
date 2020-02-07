@@ -1,13 +1,13 @@
 <template>
     <div class="nav">
         <el-row>
-            <el-col :offset="4" :span="4">
+            <el-col :offset="4" :span="2">
                 <span>
-                    <span @click="home">首页</span>
-                    <span @click="special">专栏</span>
+                    <span class="navBtn" @click="home">首页</span>
+                    <span class="navBtn" @click="special">专栏</span>
                 </span>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="6">
                 <span>
                     <span>
                         <el-input placeholder="请输入内容" v-model="query">
@@ -16,16 +16,45 @@
                     </span>
                 </span>
             </el-col>
-            <el-col :offset="2" :span="4">
+            <el-col :offset="8" :span="4">
                 <span v-if="!token">
-                    <span @click="login">登录</span>
+                    <span class="navBtn" @click="login">登录</span>
                 </span>
                 <span v-else>
-                    <!--                    <span @click="manage">创建</span>-->
-                    <!--                    <span>管理</span>-->
-                    <!--                    <span>我的</span>-->
-                    <span>{{ user.nickname }}</span>
-                    <img :src="user.avatarUrl" />
+                    <el-dropdown size="medium" @command="handleCreate">
+                        <span class="navBtn">
+                            创建
+                        </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item command="article">文章</el-dropdown-item>
+                            <el-dropdown-item command="note">笔记</el-dropdown-item>
+                            <el-dropdown-item command="special">专栏</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                    <span class="navBtn" v-if="user" @click="manage">管理</span>
+                    <span class="navBtn"></span>
+                    <el-dropdown size="medium" @command="handleMy">
+                        <span class="navBtn">
+                            <img :src="user.avatarUrl" />
+                        </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item command="">
+                                我的
+                            </el-dropdown-item>
+                            <el-dropdown-item command="special" :divided="true">
+                                专栏
+                            </el-dropdown-item>
+                            <el-dropdown-item command="article">
+                                文章
+                            </el-dropdown-item>
+                            <el-dropdown-item command="note">
+                                笔记
+                            </el-dropdown-item>
+                            <el-dropdown-item command="logout" :divided="true">
+                                退出
+                            </el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
                 </span>
             </el-col>
         </el-row>
@@ -44,16 +73,29 @@ export default {
     },
     methods: {
         home() {
-            this.$router.push("/");
+            this.push("/");
         },
         special() {
-            this.$router.push("/special");
+            this.push("/special");
         },
         login() {
-            this.$router.push("/login");
+            this.push("/login");
         },
         manage() {
-            this.$router.push("/manage");
+            this.push("/manage");
+        },
+        handleCreate(command) {
+            this.push(`/${command}/create`);
+        },
+        handleMy(command) {
+            if (command === "logout") {
+                console.log(command);
+            } else {
+                this.push(`/my/${command}`);
+            }
+        },
+        push(path) {
+            this.$router.push(path);
         }
     }
 };
@@ -62,9 +104,22 @@ export default {
 <style scoped lang="scss">
 .nav {
     width: 100%;
-    background-color: #a9b7c6;
-    color: #dbdbdb;
-    font-size: 30px;
-    line-height: 2em;
+    span.navBtn {
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size: 20px;
+        line-height: 2em;
+        color: #dbdbdb;
+        &:hover {
+            color: #5d5d5d;
+        }
+    }
+    img {
+        height: 28px;
+        width: 28px;
+        border-radius: 14px;
+        position: absolute;
+        top: 14%;
+    }
 }
 </style>

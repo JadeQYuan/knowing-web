@@ -8,12 +8,13 @@
                 <el-form-item>
                     <el-button type="primary" @click="getList">查询</el-button>
                     <el-button type="primary" @click="resetQuery">重置</el-button>
-                    <el-button type="primary" @click="add">添加 </el-button>
                 </el-form-item>
             </el-form>
             <el-table :data="tableData" max-height="1200" border style="width: 100%">
-                <el-table-column prop="title" label="标题" width="300"></el-table-column>
-                <el-table-column :formatter="simple" label="内容"></el-table-column>
+                <el-table-column prop="name" label="标题" width="300"></el-table-column>
+                <el-table-column prop="intro" label="描述"></el-table-column>
+                <el-table-column prop="shared" label="共享" width="300"></el-table-column>
+                <el-table-column prop="createTime" label="创建时间"></el-table-column>
                 <el-table-column fixed="right" label="操作" width="100">
                     <template v-slot="scope">
                         <el-button @click="info(scope.row)" type="text" size="small">
@@ -40,10 +41,10 @@
 </template>
 
 <script>
-import { getNotePage } from "@/api/note";
+import { getSpecialPage } from "@/api/special";
 
 export default {
-    name: "NoteList",
+    name: "SpecialList",
     data() {
         return {
             tableData: [],
@@ -61,17 +62,14 @@ export default {
         this.getList();
     },
     methods: {
-        add() {
-            this.$router.push(`/manage/note/add`);
-        },
         info(row) {
-            this.$router.push(`/manage/note/${row.id}/view`);
+            this.$router.push(`/manage/article/${row.id}/view`);
         },
         modify(row) {
-            this.$router.push(`/manage/note/${row.id}`);
+            this.$router.push(`/manage/article/${row.id}`);
         },
         getList() {
-            getNotePage(this.query)
+            getSpecialPage(this.query)
                 .then(data => {
                     this.tableData = data.list;
                     this.page.total = data.total;
@@ -93,29 +91,6 @@ export default {
         handleCurrentChange(val) {
             this.query.pageNum = val;
             this.getList();
-        },
-        simple(row) {
-            if (!row.content) {
-                return "";
-            } else {
-                const str = row.content
-                    .replace(/(\*\*|__)(.*?)(\*\*|__)/g, "") //全局匹配内粗体
-                    .replace(/\\!\[[\s\S]*?\]\([\s\S]*?\)/g, "") //全局匹配图片
-                    .replace(/\[[\s\S]*?\]\([\s\S]*?\)/g, "") //全局匹配连接
-                    .replace(/<\/?.+?\/?>/g, "") //全局匹配内html标签
-                    .replace(/(\*)(.*?)(\*)/g, "") //全局匹配内联代码块
-                    .replace(/`{1,2}[^`](.*?)`{1,2}/g, "") //全局匹配内联代码块
-                    .replace(/```([\s\S]*?)```[\s]*/g, "") //全局匹配代码块
-                    .replace(/\\~\\~(.*?)\\~\\~/g, "") //全局匹配删除线
-                    .replace(/[\s]*[-\\*]+(.*)/g, "") //全局匹配无序列表
-                    .replace(/[\s]*[0-9]+\.(.*)/g, "") //全局匹配有序列表
-                    .replace(/(#+)(.*)/g, "") //全局匹配标题
-                    .replace(/(>+)(.*)/g, "") //全局匹配摘要
-                    .replace(/\r\n/g, "") //全局匹配换行
-                    .replace(/\n/g, "") //全局匹配换行
-                    .replace(/\s/g, ""); //全局匹配空字符;
-                return str.slice(0, 155);
-            }
         }
     }
 };

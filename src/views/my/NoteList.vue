@@ -8,16 +8,10 @@
                 <el-form-item>
                     <el-button type="primary" @click="getList">查询</el-button>
                     <el-button type="primary" @click="resetQuery">重置</el-button>
-                    <el-button type="primary" @click="add">添加 </el-button>
                 </el-form-item>
             </el-form>
             <el-table :data="tableData" max-height="1200" border style="width: 100%">
                 <el-table-column prop="title" label="标题" width="300"></el-table-column>
-                <el-table-column label="标签">
-                    <template v-slot="scope">
-                        <el-tag v-for="tag in scope.row.tags" :key="tag.id">{{ tag.name }}</el-tag>
-                    </template>
-                </el-table-column>
                 <el-table-column :formatter="simple" label="内容"></el-table-column>
                 <el-table-column fixed="right" label="操作" width="100">
                     <template v-slot="scope">
@@ -45,13 +39,12 @@
 </template>
 
 <script>
-import { getArticlePage } from "@/api/article";
+import { getNotePage } from "@/api/note";
 
 export default {
-    name: "ArticleList",
+    name: "NoteList",
     data() {
         return {
-            articles: [],
             tableData: [],
             query: {
                 pageNum: 1,
@@ -68,16 +61,13 @@ export default {
     },
     methods: {
         info(row) {
-            this.$router.push(`/manage/article/${row.id}/view`);
+            this.$router.push(`/manage/note/${row.id}/view`);
         },
         modify(row) {
-            this.$router.push(`/manage/article/${row.id}`);
-        },
-        add() {
-            this.$router.push(`/manage/article/add`);
+            this.$router.push(`/manage/note/${row.id}`);
         },
         getList() {
-            getArticlePage(this.query)
+            getNotePage(this.query)
                 .then(data => {
                     this.tableData = data.list;
                     this.page.total = data.total;
