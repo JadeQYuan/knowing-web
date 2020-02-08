@@ -21,7 +21,7 @@
                     <span class="navBtn" @click="login">登录</span>
                 </span>
                 <span v-else>
-                    <el-dropdown size="medium" @command="handleCreate">
+                    <el-dropdown size="medium" @command="handleCreate" placement="bottom-start">
                         <span class="navBtn">
                             创建
                         </span>
@@ -32,10 +32,13 @@
                         </el-dropdown-menu>
                     </el-dropdown>
                     <span class="navBtn" v-if="user" @click="manage">管理</span>
-                    <span class="navBtn"></span>
-                    <el-dropdown size="medium" @command="handleMy">
+                    <el-dropdown size="medium" @command="handleMy" placement="bottom-start">
                         <span class="navBtn">
-                            <img :src="user.avatarUrl" />
+                            <el-avatar
+                                size="small"
+                                :src="user.avatarUrl"
+                                icon="el-icon-user-solid"
+                            ></el-avatar>
                         </span>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="">
@@ -76,7 +79,7 @@ export default {
             this.push("/");
         },
         special() {
-            this.push("/special");
+            this.push("/specials");
         },
         login() {
             this.push("/login");
@@ -114,10 +117,7 @@ export default {
             color: #5d5d5d;
         }
     }
-    img {
-        height: 28px;
-        width: 28px;
-        border-radius: 14px;
+    .el-avatar {
         position: absolute;
         top: 14%;
     }

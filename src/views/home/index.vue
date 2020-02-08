@@ -1,21 +1,22 @@
 <template>
-    <el-container>
-        <el-main>
-            <el-row :gutter="20">
-                <main-welcome></main-welcome>
-                <el-col :span="2" :offset="3">
-                    <main-tag></main-tag>
-                </el-col>
-                <el-col :span="12">
-                    <main-image></main-image>
-                    <main-article></main-article>
-                </el-col>
-                <el-col :span="4">
-                    <main-about></main-about>
-                </el-col>
-            </el-row>
-        </el-main>
-    </el-container>
+    <div>
+        <el-row>
+            <main-welcome></main-welcome>
+        </el-row>
+        <el-row class="k-content">
+            <el-col :span="3">
+                <main-tag></main-tag>
+            </el-col>
+            <el-col :span="14">
+                <main-image></main-image>
+                <main-article></main-article>
+                <el-backtop target=".el-container"></el-backtop>
+            </el-col>
+            <el-col :span="6">
+                <main-about></main-about>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 
 <script>
@@ -42,14 +43,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-.el-main {
-    padding: 0;
-    .el-divider {
-        background-color: #0977ab;
-    }
-}
-.el-footer {
-    background-color: #909399;
-}
-</style>
+<style scoped lang="scss"></style>

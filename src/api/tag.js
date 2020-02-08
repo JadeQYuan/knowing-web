@@ -8,6 +8,13 @@ export function getTagList(param) {
     });
 }
 
+export function getPopularTagList() {
+    return request({
+        method: "GET",
+        url: "/tags/popular"
+    });
+}
+
 export function getTagPage(param) {
     return request({
         method: "GET",

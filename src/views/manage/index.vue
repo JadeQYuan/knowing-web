@@ -30,6 +30,6 @@ export default {
 <style scoped lang="scss">
 .el-aside {
     background-color: #545c64;
-    min-height: calc(100vh - 120px);
+    min-height: calc(100vh - 100px);
 }
 </style>

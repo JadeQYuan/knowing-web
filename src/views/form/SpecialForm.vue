@@ -1,25 +1,20 @@
 <template>
-    <div>
-        <el-form :model="formModel">
-            <el-form-item>
-                名称 :
-                <el-input v-model="formModel.name"></el-input>
-            </el-form-item>
-            <el-form-item>
-                描述 :
-                <el-input v-model="formModel.intro" type="textarea"></el-input>
-            </el-form-item>
-            <el-form-item>
-                共享 :
-                <el-radio v-model="formModel.shared" :label="true">是</el-radio>
-                <el-radio v-model="formModel.shared" :label="false">否</el-radio>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="submit">{{ btnName }}</el-button>
-                <el-button @click="back">取消</el-button>
-            </el-form-item>
-        </el-form>
-    </div>
+    <el-form :model="formModel" class="k-content" label-width="120px">
+        <el-form-item label="名称">
+            <el-input v-model="formModel.name"></el-input>
+        </el-form-item>
+        <el-form-item label="描述">
+            <el-input v-model="formModel.intro" type="textarea"></el-input>
+        </el-form-item>
+        <el-form-item label="共享">
+            <el-radio v-model="formModel.shared" :label="true">是</el-radio>
+            <el-radio v-model="formModel.shared" :label="false">否</el-radio>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="submit">{{ btnName }}</el-button>
+            <el-button @click="back">取消</el-button>
+        </el-form-item>
+    </el-form>
 </template>
 
 <script>
@@ -87,4 +82,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.el-form {
+    padding-top: 25px;
+}
+</style>

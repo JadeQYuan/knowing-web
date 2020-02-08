@@ -1,50 +1,64 @@
 <template>
-    <ul class="k-article infinite-list" v-infinite-scroll="load" style="overflow:auto">
-        <li
-            class="k-article-card infinite-list-item"
-            v-for="article in articles"
-            :key="article.id"
-            @click="view(article.id)"
-        >
-            <el-card shadow="always">
-                <div slot="header" class="clearfix">
-                    <span>{{ article.title }}</span>
-                    <el-button style="float: right; padding: 3px 0" type="text">
-                        操作按钮
-                    </el-button>
-                </div>
-                {{ simple(article.content) }}
-            </el-card>
-        </li>
-    </ul>
+    <div class="k-article infinite-list-wrapper" style="overflow:auto">
+        <ul class="list" v-infinite-scroll="load" :infinite-scroll-disabled="true">
+            <li><el-divider></el-divider></li>
+            <li v-for="article in articles" class="list-item" :key="article.id">
+                <article-card :article="article" />
+                <el-divider></el-divider>
+            </li>
+        </ul>
+        <p v-if="loading">
+            <el-button round :loading="true">加载中...</el-button>
+        </p>
+        <p v-if="noMore">
+            <el-button round :disabled="true">没有更多了...</el-button>
+        </p>
+        <p v-if="!loading && !noMore">
+            <el-button round @click="load">点击加载更多</el-button>
+        </p>
+    </div>
 </template>
 
 <script>
-import { getArticlePage } from "@/api/article";
+import { getNewestArticlePage } from "@/api/article";
+import ArticleCard from "./ArticleCard";
 
 export default {
     name: "HomeArticle",
+    components: { ArticleCard },
     data() {
         return {
             articles: [],
+            loading: false,
+            totalPage: 1,
             query: {
                 pageNum: 1,
-                pageSize: 3
+                pageSize: 5
             }
         };
+    },
+    computed: {
+        noMore() {
+            return this.query.pageNum === this.totalPage;
+        }
     },
     mounted() {
         this.getArticles();
     },
     methods: {
         load() {
-            this.query.pageNum++;
-            this.getArticles();
+            this.loading = true;
+            setTimeout(() => {
+                this.query.pageNum++;
+                this.getArticles();
+                this.loading = false;
+            }, 200);
         },
         getArticles() {
             const _this = this;
-            getArticlePage(this.query)
+            getNewestArticlePage(this.query)
                 .then(data => {
+                    _this.totalPage = data.totalPage;
                     data.list.forEach(value => {
                         _this.articles.push(value);
                     });
@@ -55,9 +69,6 @@ export default {
                         confirmButtonText: "确定"
                     });
                 });
-        },
-        view(id) {
-            this.$router.push(`/view/article/${id}`);
         },
         simple: function(res) {
             return res
@@ -83,10 +94,17 @@ export default {
 
 <style scoped lang="scss">
 .k-article {
-    padding-top: 20px;
-    height: 650px;
+    padding: 20px 0;
+    .el-divider {
+        &:first-child {
+            margin-bottom: 0;
+        }
+    }
     .k-article-card {
         padding: 5px 0;
+    }
+    p {
+        text-align: center;
     }
 }
 </style>

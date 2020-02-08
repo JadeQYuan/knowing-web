@@ -1,5 +1,5 @@
 <template>
-    <div class="grid-content bg-purple">
+    <div class="about">
         <div class="k-more">
             <h3>关于我</h3>
             <div class="k-avatar">
@@ -16,15 +16,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.k-more {
-    background-color: #dbdbdb;
-    width: 100%;
-    h3 {
-        text-align: center;
-    }
-    .k-avatar {
+.about {
+    padding-left: 10px;
+    .k-more {
+        background-color: #dbdbdb;
         width: 100%;
-        height: 50px;
+        h3 {
+            text-align: center;
+        }
+        .k-avatar {
+            width: 100%;
+            height: 50px;
+        }
     }
 }
 </style>

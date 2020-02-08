@@ -38,8 +38,9 @@ export default {
     height: 48vh;
     justify-content: center;
     align-items: center;
+    background-image: url("../../../assets/welcome.jpg");
     background-color: #9b9b9b;
-    background-size: cover;
+    background-size: 100% 48vh;
 }
 
 p {

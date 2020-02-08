@@ -8,6 +8,14 @@ export function getArticleList(param) {
     });
 }
 
+export function getNewestArticlePage(param) {
+    return request({
+        method: "GET",
+        url: "/articles/newest/paging",
+        params: param
+    });
+}
+
 export function getArticlePage(param) {
     return request({
         method: "GET",

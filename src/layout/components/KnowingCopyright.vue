@@ -16,5 +16,6 @@ div {
     text-align: center;
     color: #dbdbdb;
     font-size: 16px;
+    padding-top: 18px;
 }
 </style>

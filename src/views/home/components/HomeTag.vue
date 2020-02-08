@@ -1,16 +1,16 @@
 <template>
     <div class="grid-content bg-purple">
         <div class="k-tag">
-            <div v-for="tag in tags" :key="tag.id">
+            <div v-for="tag in tags" :key="tag.id" @click="view(tag.id)">
                 {{ tag.name }}
             </div>
-            <div>更多</div>
+            <div @click="view()">更多</div>
         </div>
     </div>
 </template>
 
 <script>
-import { getTagList } from "@/api/tag";
+import { getPopularTagList } from "@/api/tag";
 export default {
     name: "HomeTag",
     data() {
@@ -23,7 +23,7 @@ export default {
     },
     methods: {
         getTags() {
-            getTagList()
+            getPopularTagList()
                 .then(data => {
                     this.tags = data;
                 })
@@ -32,6 +32,13 @@ export default {
                         confirmButtonText: "确定"
                     });
                 });
+        },
+        view(tagId) {
+            if (tagId) {
+                this.$router.push(`/tags/${tagId}`);
+            } else {
+                this.$router.push(`/tags`);
+            }
         }
     }
 };
@@ -39,13 +46,14 @@ export default {
 
 <style scoped lang="scss">
 .k-tag {
+    padding-right: 10px;
     div {
         padding: 10px 10px;
         border-radius: 15px;
-        text-shadow: 5px 5px 5px #0977ab;
+        text-shadow: 5px 5px 5px #a9b7c6;
         font-size: 14px;
         &:hover {
-            background-color: #0977ab;
+            background-color: #a9b7c6;
         }
     }
 }

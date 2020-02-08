@@ -39,9 +39,14 @@ const routes = [
                 component: () => import("@/views/home")
             },
             {
-                path: "special",
+                path: "specials",
                 name: "special",
                 component: () => import("@/views/special")
+            },
+            {
+                path: "tags",
+                name: "tag",
+                component: () => import("@/views/tag")
             },
             {
                 path: "article/create",

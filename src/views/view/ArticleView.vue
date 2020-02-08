@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="k-content">
         <div>{{ model.title }}</div>
         <div>
             <el-tag v-for="tag in model.tags" :key="tag.id">

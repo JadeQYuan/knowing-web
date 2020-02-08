@@ -1,17 +1,17 @@
 <template>
-    <div>
-        <el-form :model="formModel">
-            <el-form-item> title : <el-input v-model="formModel.title"></el-input> </el-form-item>
-            <el-form-item>
-                <!--        content : <el-input v-model="formModel.content"></el-input>-->
-                <mavonEditor v-model="formModel.content"></mavonEditor>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="submit">{{ btnName }}</el-button>
-                <el-button @click="back">取消</el-button>
-            </el-form-item>
-        </el-form>
-    </div>
+    <el-form :model="formModel" class="k-content">
+        <el-form-item>
+            <el-input v-model="formModel.title" placeholder="请输入标题"></el-input>
+        </el-form-item>
+        <el-form-item>
+            <!--        content : <el-input v-model="formModel.content"></el-input>-->
+            <mavonEditor v-model="formModel.content"></mavonEditor>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="submit">{{ btnName }}</el-button>
+            <el-button @click="back">取消</el-button>
+        </el-form-item>
+    </el-form>
 </template>
 
 <script>
@@ -82,4 +82,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.el-form {
+    padding-top: 25px;
+}
+</style>
