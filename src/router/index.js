@@ -111,29 +111,27 @@ const routes = [
             {
                 path: "manage",
                 name: "Management",
-                component: () => import("@/views/manage"),
-                children: [
-                    {
-                        path: "tag",
-                        name: "TagManager",
-                        component: () => import("@/views/manage/tag")
-                    }
-                    // {
-                    //     path: "tag",
-                    //     name: "tagList",
-                    //     component: () => import("@/views/manage/tag/TagList.vue")
-                    // },
-                    // {
-                    //     path: "tag/add",
-                    //     name: "tagAdd",
-                    //     component: () => import("@/views/manage/tag/TagForm.vue")
-                    // },
-                    // {
-                    //     path: "tag/:id",
-                    //     name: "tagModify",
-                    //     component: () => import("@/views/manage/tag/TagForm.vue")
-                    // }
-                ]
+                component: () => import("@/views/manage")
+            },
+            {
+                path: "manage/special",
+                name: "SpecialManager",
+                component: () => import("@/views/manage/SpecialList")
+            },
+            {
+                path: "manage/tag",
+                name: "TagManager",
+                component: () => import("@/views/manage/tag")
+            },
+            {
+                path: "manage/article",
+                name: "ArticleManager",
+                component: () => import("@/views/manage/ArticleList")
+            },
+            {
+                path: "manage/note",
+                name: "NoteManager",
+                component: () => import("@/views/manage/NoteList")
             }
         ]
     }

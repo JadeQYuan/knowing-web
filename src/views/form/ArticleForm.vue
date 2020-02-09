@@ -14,16 +14,15 @@
                 </el-option>
             </el-select>
         </el-form-item>
-        <el-form-item>
-            标签 :
+        <el-form-item label="标签">
+            <el-tag v-for="tag in formModel.tags" :key="tag.id" closable @close="handleClose(tag)">
+                {{ tag.name }}
+            </el-tag>
             <el-checkbox-group v-model="formModel.tags" v-show="tagSelectable">
                 <template v-for="tag in tags">
                     <el-checkbox :label="tag" :key="tag.id">{{ tag.name }}</el-checkbox>
                 </template>
             </el-checkbox-group>
-            <el-tag v-for="tag in formModel.tags" :key="tag.id" closable @close="handleClose(tag)">
-                {{ tag.name }}
-            </el-tag>
         </el-form-item>
         <el-form-item>
             <!--        content : <el-input v-model="formModel.content"></el-input>-->

@@ -1,20 +1,10 @@
 <template>
     <div>
         <el-form :model="formModel">
-            <el-form-item label="名称">
-                <el-input v-model="formModel.name"></el-input>
-            </el-form-item>
-            <el-select v-model="formModel.categoryId" placeholder="请选择分类">
-                <el-option
-                    v-for="item in categoryList"
-                    :key="item.id"
-                    :label="item.name"
-                    :value="item.id"
-                >
-                </el-option>
-            </el-select>
-            <el-form-item label="描述">
-                <el-input v-model="formModel.intro"></el-input>
+            <el-form-item> 名称 : <el-input v-model="formModel.name"></el-input> </el-form-item>
+            <el-form-item label="共享">
+                <el-radio v-model="formModel.shared" :label="true">是</el-radio>
+                <el-radio v-model="formModel.shared" :label="false">否</el-radio>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="commit">{{ btnName }}</el-button>
@@ -24,18 +14,16 @@
 </template>
 
 <script>
-import { addTag, getTagInfo, updateTag, getTagCategoryList } from "@/api/tag";
+import { addTagCategory, getTagCategory, updateTagCategory } from "@/api/tag";
 
 export default {
-    name: "TagForm",
+    name: "TagCategoryForm",
     props: ["id"],
     data() {
         return {
-            categoryList: [],
             formModel: {
                 name: "",
-                categoryId: "",
-                intro: ""
+                shared: ""
             }
         };
     },
@@ -46,7 +34,7 @@ export default {
     },
     mounted() {
         if (this.id) {
-            getTagInfo(this.id)
+            getTagCategory(this.id)
                 .then(data => (this.formModel = data))
                 .catch(error => {
                     this.$alert(error, {
@@ -54,20 +42,11 @@ export default {
                     });
                 });
         }
-        getTagCategoryList()
-            .then(data => {
-                this.categoryList = data;
-            })
-            .catch(error => {
-                this.$alert(error, {
-                    confirmButtonText: "确定"
-                });
-            });
     },
     methods: {
         commit() {
             if (!this.id) {
-                addTag(this.formModel)
+                addTagCategory(this.formModel)
                     .then(() => {
                         this.$emit("refresh");
                     })
@@ -77,7 +56,7 @@ export default {
                         });
                     });
             } else {
-                updateTag(this.id, this.formModel)
+                updateTagCategory(this.id, this.formModel)
                     .then(() => {
                         this.$emit("refresh");
                     })

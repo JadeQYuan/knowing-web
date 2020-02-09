@@ -1,8 +1,8 @@
 <template>
-    <div class="k-content">
-        <el-form :inline="true" :model="query" class="demo-form-inline">
-            <el-form-item label="标题">
-                <el-input v-model="query.title" placeholder="标题"></el-input>
+    <div>
+        <el-form :inline="true" :model="query">
+            <el-form-item label="名称">
+                <el-input v-model="query.name" placeholder="名称"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="getList">查询</el-button>
@@ -10,27 +10,17 @@
             </el-form-item>
         </el-form>
         <el-table :data="tableData" max-height="1200" border style="width: 100%">
-            <el-table-column label="标题" width="300">
+            <el-table-column prop="name" label="名称" width="300"></el-table-column>
+            <el-table-column label="共享" width="80">
                 <template v-slot="scope">
-                    <a @click="info(scope.row)">{{ scope.row.title }}</a>
+                    <el-tag>{{ scope.row.shared ? "是" : "否" }}</el-tag>
                 </template>
             </el-table-column>
-            <el-table-column label="标签">
-                <template v-slot="scope">
-                    <el-tag v-for="tag in scope.row.tags" :key="tag.id">{{ tag.name }}</el-tag>
-                </template>
-            </el-table-column>
-            <el-table-column prop="specialName" label="专栏" width="300"></el-table-column>
-            <el-table-column prop="createTime" label="创建时间" width="300"></el-table-column>
-            <el-table-column fixed="right" label="操作" width="100">
-                <template v-slot="scope">
-                    <el-button @click="info(scope.row)" type="text" size="small">
-                        查看
-                    </el-button>
-                    <el-button @click="modify(scope.row)" type="text" size="small">
-                        编辑
-                    </el-button>
-                </template>
+            <el-table-column prop="createUserName" label="创建人"></el-table-column>
+            <el-table-column prop="createTime" label="创建时间"></el-table-column>
+            <el-table-column prop="description" label="描述"></el-table-column>
+            <el-table-column fixed="right" label="操作" width="50">
+                <template v-slot="scope"> XXX </template>
             </el-table-column>
         </el-table>
         <el-pagination
@@ -47,18 +37,17 @@
 </template>
 
 <script>
-import { getMyArticlePage } from "@/api/article";
+import { getAllSpecialPage } from "@/api/special";
 
 export default {
-    name: "ArticleList",
+    name: "SpecialList",
     data() {
         return {
-            articles: [],
             tableData: [],
             query: {
                 pageNum: 1,
                 pageSize: 10,
-                title: ""
+                name: ""
             },
             page: {
                 total: 0
@@ -69,14 +58,8 @@ export default {
         this.getList();
     },
     methods: {
-        info(row) {
-            this.$router.push(`/view/article/${row.id}`);
-        },
-        modify(row) {
-            this.$router.push(`/article/update/${row.id}`);
-        },
         getList() {
-            getMyArticlePage(this.query)
+            getAllSpecialPage(this.query)
                 .then(data => {
                     this.tableData = data.list;
                     this.page.total = data.total;
@@ -88,7 +71,7 @@ export default {
                 });
         },
         resetQuery() {
-            this.query.title = "";
+            this.query.name = "";
             this.getList();
         },
         handleSizeChange(val) {
@@ -103,8 +86,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-a {
-    color: #409eff;
-}
-</style>
+<style scoped></style>

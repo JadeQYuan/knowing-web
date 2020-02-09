@@ -1,7 +1,7 @@
 <template>
-    <div class="k-content">
-        <el-form :inline="true" :model="query" class="demo-form-inline">
-            <el-form-item label="标题">
+    <div>
+        <el-form :inline="true" :model="query">
+            <el-form-item label="名称">
                 <el-input v-model="query.title" placeholder="标题"></el-input>
             </el-form-item>
             <el-form-item>
@@ -15,16 +15,12 @@
                     <a @click="info(scope.row)">{{ scope.row.title }}</a>
                 </template>
             </el-table-column>
-            <el-table-column :formatter="simple" label="内容">
+            <el-table-column prop="createUserName" label="创建人" width="200"></el-table-column>
+            <el-table-column prop="createTime" label="创建时间" width="200"></el-table-column>
+            <el-table-column prop="content" label="内容" :formatter="simple"></el-table-column>
+            <el-table-column fixed="right" label="操作" width="50">
                 <template v-slot="scope">
-                    <span class="content">{{ scope.row.content }}</span>
-                </template>
-            </el-table-column>
-            <el-table-column fixed="right" label="操作" width="100">
-                <template v-slot="scope">
-                    <el-button @click="modify(scope.row)" type="text" size="small">
-                        编辑
-                    </el-button>
+                    XXX
                 </template>
             </el-table-column>
         </el-table>
@@ -42,7 +38,7 @@
 </template>
 
 <script>
-import { getNotePage } from "@/api/note";
+import { getAllNotePage } from "@/api/note";
 
 export default {
     name: "NoteList",
@@ -63,14 +59,8 @@ export default {
         this.getList();
     },
     methods: {
-        info(row) {
-            this.$router.push(`/view/note/${row.id}`);
-        },
-        modify(row) {
-            this.$router.push(`/note/update/${row.id}`);
-        },
         getList() {
-            getNotePage(this.query)
+            getAllNotePage(this.query)
                 .then(data => {
                     this.tableData = data.list;
                     this.page.total = data.total;
@@ -82,7 +72,7 @@ export default {
                 });
         },
         resetQuery() {
-            this.query.title = "";
+            this.query.name = "";
             this.getList();
         },
         handleSizeChange(val) {
@@ -92,6 +82,9 @@ export default {
         handleCurrentChange(val) {
             this.query.pageNum = val;
             this.getList();
+        },
+        info(row) {
+            this.$router.push(`/view/note/${row.id}`);
         },
         simple(row) {
             if (!row.content) {
@@ -121,11 +114,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.content {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 a {
     color: #409eff;
 }

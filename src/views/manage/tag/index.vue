@@ -1,74 +1,80 @@
 <template>
-    <el-container>
-        <el-row>
-            <el-col :span="8">
-                <div>
-                    <el-button>添加</el-button>
-                </div>
-                <el-tree
-                    :data="data"
-                    :props="defaultProps"
-                    :accordion="true"
-                    @node-click="handleNodeClick"
-                ></el-tree>
-            </el-col>
-            <el-col :offset="2" :span="12">
-                <tag-form />
-            </el-col>
-        </el-row>
-    </el-container>
+    <el-row>
+        <el-col :span="8">
+            <div>
+                <el-button @click="addTagCategory">添加分类</el-button>
+                <el-button @click="addTag">添加标签</el-button>
+            </div>
+            <el-tree
+                :data="treeData"
+                :props="defaultProps"
+                :accordion="true"
+                @node-click="handleNodeClick"
+            ></el-tree>
+        </el-col>
+        <el-col :offset="2" :span="12">
+            <tag-form
+                v-if="type === 'Tag'"
+                :id="checkedId"
+                v-on:refresh="refresh"
+                :key="checkedId"
+            />
+            <tag-category-form
+                v-if="type === 'TagCategory'"
+                :id="checkedId"
+                :key="checkedId"
+                v-on:refresh="refresh"
+            />
+        </el-col>
+    </el-row>
 </template>
 
 <script>
 import TagForm from "./TagForm";
+import { getTagTree } from "@/api/tag";
+import TagCategoryForm from "./TagCategoryForm";
+
 export default {
     name: "TagManager",
     data() {
         return {
-            data: [
-                {
-                    label: "一级 1",
-                    children: [
-                        {
-                            label: "二级 1-1"
-                        }
-                    ]
-                },
-                {
-                    label: "一级 2",
-                    children: [
-                        {
-                            label: "二级 2-1"
-                        },
-                        {
-                            label: "二级 2-2"
-                        }
-                    ]
-                },
-                {
-                    label: "一级 3",
-                    children: [
-                        {
-                            label: "二级 3-1"
-                        },
-                        {
-                            label: "二级 3-2"
-                        }
-                    ]
-                }
-            ],
+            checkedId: "",
+            treeData: [],
             defaultProps: {
                 children: "children",
-                label: "label"
-            }
+                label: function(data) {
+                    return data.data.name || data.data;
+                }
+            },
+            type: ""
         };
     },
     components: {
+        TagCategoryForm,
         TagForm
+    },
+    mounted() {
+        this.getTree();
     },
     methods: {
         handleNodeClick(data) {
-            data.id;
+            console.log(data);
+            this.type = data.type;
+            this.checkedId = data.id;
+        },
+        getTree() {
+            getTagTree().then(data => {
+                this.treeData = data;
+            });
+        },
+        addTagCategory() {
+            this.type = "TagCategory";
+        },
+        addTag() {
+            this.type = "Tag";
+        },
+        refresh() {
+            this.getTree();
         }
     }
 };

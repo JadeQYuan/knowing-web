@@ -24,6 +24,14 @@ export function getMySpecialPage(param) {
     });
 }
 
+export function getAllSpecialPage(param) {
+    return request({
+        method: "GET",
+        url: "/specials/all/paging",
+        params: param
+    });
+}
+
 export function addSpecial(data) {
     return request({
         method: "POST",

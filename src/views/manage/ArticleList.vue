@@ -1,6 +1,6 @@
 <template>
-    <div class="k-content">
-        <el-form :inline="true" :model="query" class="demo-form-inline">
+    <div>
+        <el-form :inline="true" :model="query">
             <el-form-item label="标题">
                 <el-input v-model="query.title" placeholder="标题"></el-input>
             </el-form-item>
@@ -15,16 +15,21 @@
                     <a @click="info(scope.row)">{{ scope.row.title }}</a>
                 </template>
             </el-table-column>
-            <el-table-column :formatter="simple" label="内容">
+            <el-table-column label="标签">
+                <template v-slot="scope">
+                    <el-tag v-for="tag in scope.row.tags" :key="tag.id">{{ tag.name }}</el-tag>
+                </template>
+            </el-table-column>
+            <el-table-column prop="specialName" label="专栏" width="300"></el-table-column>
+            <el-table-column prop="createTime" label="创建时间" width="300"></el-table-column>
+            <el-table-column label="内容" :formatter="simple">
                 <template v-slot="scope">
                     <span class="content">{{ scope.row.content }}</span>
                 </template>
             </el-table-column>
-            <el-table-column fixed="right" label="操作" width="100">
+            <el-table-column fixed="right" label="操作" width="50">
                 <template v-slot="scope">
-                    <el-button @click="modify(scope.row)" type="text" size="small">
-                        编辑
-                    </el-button>
+                    XXX
                 </template>
             </el-table-column>
         </el-table>
@@ -42,10 +47,10 @@
 </template>
 
 <script>
-import { getNotePage } from "@/api/note";
+import { getAllArticlePage } from "@/api/article";
 
 export default {
-    name: "NoteList",
+    name: "ArticleList",
     data() {
         return {
             tableData: [],
@@ -63,14 +68,8 @@ export default {
         this.getList();
     },
     methods: {
-        info(row) {
-            this.$router.push(`/view/note/${row.id}`);
-        },
-        modify(row) {
-            this.$router.push(`/note/update/${row.id}`);
-        },
         getList() {
-            getNotePage(this.query)
+            getAllArticlePage(this.query)
                 .then(data => {
                     this.tableData = data.list;
                     this.page.total = data.total;
@@ -82,7 +81,7 @@ export default {
                 });
         },
         resetQuery() {
-            this.query.title = "";
+            this.query.name = "";
             this.getList();
         },
         handleSizeChange(val) {
@@ -92,6 +91,9 @@ export default {
         handleCurrentChange(val) {
             this.query.pageNum = val;
             this.getList();
+        },
+        info(row) {
+            this.$router.push(`/view/article/${row.id}`);
         },
         simple(row) {
             if (!row.content) {

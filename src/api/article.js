@@ -1,13 +1,5 @@
 import request from "@/util/request";
 
-export function getArticleList(param) {
-    return request({
-        method: "GET",
-        url: "/articles",
-        params: param
-    });
-}
-
 export function getNewestArticlePage(param) {
     return request({
         method: "GET",
@@ -16,10 +8,18 @@ export function getNewestArticlePage(param) {
     });
 }
 
-export function getArticlePage(param) {
+export function getAllArticlePage(param) {
     return request({
         method: "GET",
-        url: "/articles/paging",
+        url: "/articles/all/paging",
+        params: param
+    });
+}
+
+export function getMyArticlePage(param) {
+    return request({
+        method: "GET",
+        url: "/articles/my/paging",
         params: param
     });
 }
