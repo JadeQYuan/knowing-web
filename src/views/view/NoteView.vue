@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="k-content">
         <div>{{ model.title }}</div>
         <mavonEditor
             :value="model.content"

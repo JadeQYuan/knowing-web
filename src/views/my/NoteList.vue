@@ -1,41 +1,40 @@
 <template>
-    <el-container>
-        <el-main>
-            <el-form :inline="true" :model="query" class="demo-form-inline">
-                <el-form-item label="标题">
-                    <el-input v-model="query.title" placeholder="标题"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="getList">查询</el-button>
-                    <el-button type="primary" @click="resetQuery">重置</el-button>
-                </el-form-item>
-            </el-form>
-            <el-table :data="tableData" max-height="1200" border style="width: 100%">
-                <el-table-column prop="title" label="标题" width="300"></el-table-column>
-                <el-table-column :formatter="simple" label="内容"></el-table-column>
-                <el-table-column fixed="right" label="操作" width="100">
-                    <template v-slot="scope">
-                        <el-button @click="info(scope.row)" type="text" size="small">
-                            查看
-                        </el-button>
-                        <el-button @click="modify(scope.row)" type="text" size="small">
-                            编辑
-                        </el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
-            <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page="query.currentPage"
-                :page-sizes="[10, 20, 30, 40]"
-                :page-size="query.pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="page.total"
-            >
-            </el-pagination>
-        </el-main>
-    </el-container>
+    <div class="k-content">
+        <el-form :inline="true" :model="query" class="demo-form-inline">
+            <el-form-item label="标题">
+                <el-input v-model="query.title" placeholder="标题"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="getList">查询</el-button>
+                <el-button type="primary" @click="resetQuery">重置</el-button>
+            </el-form-item>
+        </el-form>
+        <el-table :data="tableData" max-height="1200" border style="width: 100%">
+            <el-table-column label="标题" width="300">
+                <template v-slot="scope">
+                    <a @click="info(scope.row)">{{ scope.row.title }}</a>
+                </template>
+            </el-table-column>
+            <el-table-column :formatter="simple" label="内容"></el-table-column>
+            <el-table-column fixed="right" label="操作" width="100">
+                <template v-slot="scope">
+                    <el-button @click="modify(scope.row)" type="text" size="small">
+                        编辑
+                    </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="query.currentPage"
+            :page-sizes="[10, 20, 30, 40]"
+            :page-size="query.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="page.total"
+        >
+        </el-pagination>
+    </div>
 </template>
 
 <script>
@@ -61,10 +60,10 @@ export default {
     },
     methods: {
         info(row) {
-            this.$router.push(`/manage/note/${row.id}/view`);
+            this.$router.push(`/view/note/${row.id}`);
         },
         modify(row) {
-            this.$router.push(`/manage/note/${row.id}`);
+            this.$router.push(`/note/update/${row.id}`);
         },
         getList() {
             getNotePage(this.query)
@@ -117,4 +116,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+a {
+    color: #409eff;
+}
+</style>

@@ -1,17 +1,9 @@
 import request from "@/util/request";
 
-export function getNoteList(param) {
-    return request({
-        method: "GET",
-        url: "/notes",
-        params: param
-    });
-}
-
 export function getNotePage(param) {
     return request({
         method: "GET",
-        url: "/notes/paging",
+        url: "/notes/my/paging",
         params: param
     });
 }
