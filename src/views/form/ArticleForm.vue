@@ -40,7 +40,7 @@
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 import { getTagList } from "@/api/tag";
-import { getSpecialList } from "@/api/special";
+import { getMySpecialList } from "@/api/special";
 import { addArticle, getInfo, updateArticle } from "@/api/article";
 
 export default {
@@ -90,7 +90,7 @@ export default {
                         confirmButtonText: "确定"
                     });
                 });
-            getSpecialList()
+            getMySpecialList()
                 .then(data => {
                     this.specials = data;
                 })

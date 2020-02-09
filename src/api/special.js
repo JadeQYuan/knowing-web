@@ -1,9 +1,9 @@
 import request from "@/util/request";
 
-export function getSpecialList(param) {
+export function getMySpecialList(param) {
     return request({
         method: "GET",
-        url: "/specials",
+        url: "/specials/my",
         params: param
     });
 }
@@ -12,6 +12,14 @@ export function getSpecialPage(param) {
     return request({
         method: "GET",
         url: "/specials/paging",
+        params: param
+    });
+}
+
+export function getMySpecialPage(param) {
+    return request({
+        method: "GET",
+        url: "/specials/my/paging",
         params: param
     });
 }
