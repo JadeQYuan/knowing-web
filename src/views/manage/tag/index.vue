@@ -58,7 +58,6 @@ export default {
     },
     methods: {
         handleNodeClick(data) {
-            console.log(data);
             this.type = data.type;
             this.checkedId = data.id;
         },
