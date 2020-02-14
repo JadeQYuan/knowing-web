@@ -12,7 +12,7 @@
                 <main-article></main-article>
                 <el-backtop target=".el-container"></el-backtop>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="5" :offset="1">
                 <main-about></main-about>
             </el-col>
         </el-row>

@@ -1,33 +1,85 @@
 <template>
     <div class="about">
-        <div class="k-more">
-            <h3>关于我</h3>
-            <div class="k-avatar">
-                <el-avatar icon="el-icon-user-solid"></el-avatar>
-            </div>
+        <div class="avatar">
+            <img src="@/assets/avatar.jpg" />
+        </div>
+        <div class="connect">
+            <span class="github" @click="openGithub" />
+            <el-tooltip effect="light">
+                <div slot="content">
+                    <img src="@/assets/myQQ.jpg" width="128px" height="128px" />
+                </div>
+                <span class="qq" />
+            </el-tooltip>
+            <el-tooltip effect="light">
+                <div slot="content">
+                    <img src="@/assets/myWeChat.jpg" width="128px" height="128px" />
+                </div>
+                <span class="weChat" />
+            </el-tooltip>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: "HomeAbout"
+    name: "HomeAbout",
+    methods: {
+        openGithub() {
+            window.open("https://github.com/KnowingPlus", "_black");
+        }
+    }
 };
 </script>
 
 <style scoped lang="scss">
 .about {
-    padding-left: 10px;
-    .k-more {
-        background-color: #dbdbdb;
-        width: 100%;
-        h3 {
-            text-align: center;
+    width: 300px;
+    background-color: #dbdbdb;
+    height: 350px;
+    .avatar {
+        img {
+            width: 300px;
+            height: 300px;
         }
-        .k-avatar {
-            width: 100%;
-            height: 50px;
+    }
+    .connect {
+        text-align: center;
+        line-height: 3.5em;
+        span {
+            display: inline-block;
+            width: 26px;
+            height: 26px;
+            padding: 0 10px;
         }
+        .qq {
+            background: url("../../../assets/svg/qq.svg") no-repeat center center;
+            background-size: 26px 26px;
+            &:hover {
+                background: url("../../../assets/svg/qq-light.svg") no-repeat center center;
+                background-size: 26px 26px;
+            }
+        }
+        .github {
+            background: url("../../../assets/svg/github.svg") no-repeat center center;
+            background-size: 26px 26px;
+            &:hover {
+                background: url("../../../assets/svg/github-light.svg") no-repeat center center;
+                background-size: 26px 26px;
+            }
+        }
+        .weChat {
+            background: url("../../../assets/svg/weChat.svg") no-repeat center center;
+            background-size: 26px 26px;
+            &:hover {
+                background: url("../../../assets/svg/weChat-light.svg") no-repeat center center;
+                background-size: 26px 26px;
+            }
+        }
+    }
+    .my {
+        width: 64px;
+        height: 64px;
     }
 }
 </style>

@@ -1,5 +1,6 @@
 import axios from "axios";
 import store from "../store";
+import { MessageBox } from "element-ui";
 
 const axiosInstance = axios.create({
     baseURL: process.env.VUE_APP_API_BASE_URL
@@ -28,7 +29,12 @@ axiosInstance.interceptors.response.use(
             if (response.data.code === 200) {
                 return response.data.data;
             } else if (response.data.code === 30101 || response.data.code === 30102) {
-                store.commit("clearUser");
+                MessageBox.alert("登录已过期！", "登录", {
+                    confirmButtonText: "确定"
+                }).then(() => {
+                    store.commit("clearUser");
+                    location.reload();
+                });
                 return Promise.reject(response.data.message);
             } else {
                 return Promise.reject(response.data.message);

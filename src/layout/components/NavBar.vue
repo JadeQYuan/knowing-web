@@ -18,7 +18,7 @@
             </el-col>
             <el-col :offset="8" :span="4">
                 <span v-if="!token">
-                    <span class="navBtn" @click="login">登录</span>
+                    <span class="navBtn" @click="dialogTableVisible = true">登录</span>
                 </span>
                 <span v-else>
                     <el-dropdown size="medium" @command="handleCreate" placement="bottom-start">
@@ -61,16 +61,29 @@
                 </span>
             </el-col>
         </el-row>
+        <el-dialog
+            title="登录"
+            :visible.sync="dialogTableVisible"
+            :close-on-click-modal="false"
+            :close-on-press-escape="false"
+            :center="true"
+            width="450px"
+        >
+            <login v-on:clicked="clicked" />
+        </el-dialog>
     </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import Login from "../../views/login/index";
 export default {
     name: "NavBar",
+    components: { Login },
     computed: mapState(["token", "user"]),
     data() {
         return {
+            dialogTableVisible: false,
             query: ""
         };
     },
@@ -99,6 +112,9 @@ export default {
         },
         push(path) {
             this.$router.push(path);
+        },
+        clicked() {
+            this.dialogTableVisible = false;
         }
     }
 };
