@@ -106,6 +106,7 @@ export default {
         handleMy(command) {
             if (command === "logout") {
                 this.$store.commit("clearUser");
+                this.$router.push("/");
             } else {
                 this.push(`/my/${command}`);
             }
