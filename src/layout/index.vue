@@ -1,5 +1,6 @@
 <template>
     <el-scrollbar style="height: 100vh">
+        <el-backtop target=".el-scrollbar__wrap"></el-backtop>
         <el-container>
             <el-header :height="headerHeight">
                 <nav-bar />
