@@ -2,6 +2,11 @@
      margin: 0;
      padding: 0;
  }
+
 .k-content {
     padding: 2vh 16vw;
+}
+
+.el-scrollbar__wrap {
+  overflow-x: hidden;
 }

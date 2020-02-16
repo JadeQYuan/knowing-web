@@ -1,23 +1,27 @@
 <template>
-    <el-container>
-        <el-header :height="headerHeight">
-            <nav-bar />
-        </el-header>
-        <el-container v-if="side">
-            <el-aside>
-                <menu-bar />
-            </el-aside>
-            <el-main>
-                <router-view />
-            </el-main>
+    <el-scrollbar style="height: 100vh">
+        <el-container>
+            <el-header :height="headerHeight">
+                <nav-bar />
+            </el-header>
+            <el-container v-if="side">
+                <el-aside>
+                    <menu-bar />
+                </el-aside>
+                <el-main>
+                    <router-view />
+                </el-main>
+            </el-container>
+            <template v-else>
+                <el-main>
+                    <router-view />
+                </el-main>
+                <el-footer v-if="form">
+                    <knowing-copyright />
+                </el-footer>
+            </template>
         </el-container>
-        <el-main v-else>
-            <router-view />
-        </el-main>
-        <el-footer>
-            <knowing-copyright />
-        </el-footer>
-    </el-container>
+    </el-scrollbar>
 </template>
 
 <script>
@@ -29,6 +33,12 @@ export default {
     computed: {
         side() {
             return this.$route.path.startsWith("/manage");
+        },
+        form() {
+            return (
+                this.$route.path.indexOf("/create") === -1 &&
+                this.$route.path.indexOf("/update") === -1
+            );
         }
     },
     data() {
@@ -50,7 +60,7 @@ export default {
     padding: 0;
 }
 .el-aside {
-    min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 40px);
     background-color: #545c64;
 }
 .el-main {
