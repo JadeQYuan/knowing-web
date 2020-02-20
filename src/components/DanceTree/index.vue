@@ -29,8 +29,6 @@ export default {
     width: 100px;
     height: 10px;
     position: fixed;
-    left: 0;
-    top: 95%;
     margin-left: -10px;
     animation-name: rot;
     animation-duration: 2.02s;
@@ -40,42 +38,34 @@ export default {
     animation-timing-function: ease-in-out;
     z-index: -1;
 }
-.trunk,
-.trunk div.trunk {
-    bottom: 0;
-    left: 12%;
+.trunk {
+    bottom: 5%;
+    left: 10%;
     animation-name: rot-root;
     animation-duration: 2.5s;
 }
-.trunk > div,
-.trunk div > div {
-    /*opacity:0.9;*/
-    top: 0;
+.trunk div {
     left: 100px;
-    animation-duration: calc(inherit / 2);
-    /* don't works  */
 }
-.trunk > div:nth-child(2),
-.trunk div > div:nth-child(2) {
-    /*animation-duration:15s;*/
+.trunk div:nth-child(2) {
     animation-name: rot-inv;
     animation-duration: 1.7s;
 }
 
 @keyframes rot {
     from {
-        transform: rotate(15deg) scale(0.72);
+        transform: rotate(-15deg) scale(0.72);
     }
     to {
-        transform: rotate(45deg) scale(0.72);
+        transform: rotate(-45deg) scale(0.72);
     }
 }
 @keyframes rot-inv {
     from {
-        transform: rotate(-45deg) scale(0.72);
+        transform: rotate(45deg) scale(0.72);
     }
     to {
-        transform: rotate(-15deg) scale(0.72);
+        transform: rotate(15deg) scale(0.72);
     }
 }
 @keyframes rot-root {
