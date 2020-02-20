@@ -22,6 +22,7 @@
                 </el-footer>
             </template>
         </el-container>
+        <dance-tree />
     </el-scrollbar>
 </template>
 
@@ -29,6 +30,7 @@
 import NavBar from "@/layout/components/NavBar";
 import KnowingCopyright from "./components/KnowingCopyright";
 import MenuBar from "./components/MenuBar";
+import DanceTree from "@/components/DanceTree";
 export default {
     name: "index",
     computed: {
@@ -50,7 +52,8 @@ export default {
     components: {
         MenuBar,
         NavBar,
-        KnowingCopyright
+        KnowingCopyright,
+        DanceTree
     }
 };
 </script>
@@ -69,6 +72,6 @@ export default {
     min-height: calc(100vh - 100px);
 }
 .el-footer {
-    background-color: #a9b7c6;
+    background-color: #909399;
 }
 </style>

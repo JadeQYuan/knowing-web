@@ -1,15 +1,15 @@
 <template>
     <el-row>
         <el-col :span="8">
-            <img src="@/assets/svg/qq.svg" @click="qqLogin" />
+            <img src="@/assets/svgs/qq.svg" @click="qqLogin" />
             <div @click="qqLogin">QQ登录</div>
         </el-col>
         <el-col :span="8">
-            <img src="@/assets/svg/github.svg" @click="gitHubLogin" />
+            <img src="@/assets/svgs/github.svg" @click="gitHubLogin" />
             <div @click="gitHubLogin">Github登录</div>
         </el-col>
         <el-col :span="8">
-            <img src="@/assets/svg/weiBo.svg" @click="weiBoLogin" />
+            <img src="@/assets/svgs/weiBo.svg" @click="weiBoLogin" />
             <div @click="weiBoLogin">新浪微博登录</div>
         </el-col>
     </el-row>
