@@ -2,18 +2,21 @@
     <div class="k-content">
         <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>专栏</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/specials' }">专栏</el-breadcrumb-item>
+            <el-breadcrumb-item>专栏？</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-table :data="tableData">
-            <el-table-column label="名称" width="180">
+        <el-table :data="tableData" border style="width: 100%">
+            <el-table-column label="标题" width="300">
                 <template v-slot="scope">
-                    <a @click="info(scope.row)">{{ scope.row.name }}</a>
+                    <a @click="info(scope.row)">{{ scope.row.title }}</a>
                 </template>
             </el-table-column>
-            <el-table-column prop="address" label="文章数" width="180"> </el-table-column>
-            <el-table-column prop="address" label="作者" width="180"> </el-table-column>
-            <el-table-column prop="createTime" label="创建时间" width="180"> </el-table-column>
-            <el-table-column prop="name" label="描述"> </el-table-column>
+            <el-table-column label="标签">
+                <template v-slot="scope">
+                    <el-tag v-for="tag in scope.row.tags" :key="tag.id">{{ tag.name }}</el-tag>
+                </template>
+            </el-table-column>
+            <el-table-column prop="createTime" label="创建时间" width="300"></el-table-column>
         </el-table>
         <el-pagination
             @size-change="handleSizeChange"
@@ -29,11 +32,13 @@
 </template>
 
 <script>
-import { getSpecialPage } from "@/api/special";
+import { getMyArticlePage } from "@/api/article";
+
 export default {
-    name: "index",
+    name: "SpecialArticle",
     data() {
         return {
+            articles: [],
             tableData: [],
             query: {
                 pageNum: 1,
@@ -49,10 +54,10 @@ export default {
     },
     methods: {
         info(row) {
-            this.$router.push(`/specials/${row.id}`);
+            this.$router.push(`/view/article/${row.id}`);
         },
         getList() {
-            getSpecialPage(this.query)
+            getMyArticlePage(this.query)
                 .then(data => {
                     this.tableData = data.list;
                     this.page.total = data.total;

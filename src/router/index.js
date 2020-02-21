@@ -15,11 +15,6 @@ VueRouter.prototype.push = function push(location) {
 
 const routes = [
     {
-        path: "/login",
-        name: "login",
-        component: () => import("@/views/login")
-    },
-    {
         path: "/auth",
         name: "auth",
         component: () => import("@/views/login/auth")
@@ -44,9 +39,19 @@ const routes = [
                 component: () => import("@/views/special")
             },
             {
+                path: "specials/:id",
+                name: "specialArticle",
+                component: () => import("@/views/special/SpecialArticle")
+            },
+            {
                 path: "tags",
                 name: "tag",
                 component: () => import("@/views/tag")
+            },
+            {
+                path: "tags/:id",
+                name: "tagArticle",
+                component: () => import("@/views/tag/TagArticle")
             },
             {
                 path: "article/create",
