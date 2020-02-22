@@ -1,98 +1,49 @@
 <template>
-    <div class="k-content">
-        <el-form :inline="true" :model="query" class="demo-form-inline">
-            <el-form-item label="标题">
-                <el-input v-model="query.title" placeholder="标题"></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="getList">查询</el-button>
-                <el-button type="primary" @click="resetQuery">重置</el-button>
-            </el-form-item>
-        </el-form>
-        <el-table :data="tableData" max-height="1200" border style="width: 100%">
-            <el-table-column label="标题" width="300">
-                <template v-slot="scope">
-                    <a @click="info(scope.row)">{{ scope.row.title }}</a>
-                </template>
-            </el-table-column>
-            <el-table-column :formatter="simple" label="内容">
-                <template v-slot="scope">
-                    <span class="content">{{ scope.row.content }}</span>
-                </template>
-            </el-table-column>
-            <el-table-column fixed="right" label="操作" width="100">
-                <template v-slot="scope">
-                    <el-button @click="modify(scope.row)" type="text" size="small">
-                        编辑
-                    </el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-        <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page="query.currentPage"
-            :page-sizes="[10, 20, 30, 40]"
-            :page-size="query.pageSize"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="page.total"
-        >
-        </el-pagination>
-    </div>
+    <query-table-page
+        class="k-content"
+        :queryItems="queryItems"
+        :queryFunc="queryFunc"
+        :tableColumns="tableColumns"
+        :tableActions="tableActions"
+    />
 </template>
 
 <script>
+import QueryTablePage from "@/components/QueryTablePage/index";
 import { getNotePage } from "@/api/note";
 
 export default {
     name: "NoteList",
+    components: { QueryTablePage },
     data() {
         return {
-            tableData: [],
-            query: {
-                pageNum: 1,
-                pageSize: 10,
-                title: ""
-            },
-            page: {
-                total: 0
-            }
+            queryItems: [{ label: "标题", prop: "title", placeholder: "标题", value: "" }],
+            queryFunc: getNotePage,
+            tableColumns: [
+                {
+                    label: "标题",
+                    prop: "title",
+                    type: "link",
+                    click: row => this.$router.push(`/view/note/${row.id}`)
+                },
+                {
+                    label: "创建时间",
+                    prop: "createTime"
+                },
+                {
+                    label: "内容",
+                    prop: "content"
+                }
+            ],
+            tableActions: [
+                {
+                    label: "编辑",
+                    click: row => this.$router.push(`/note/update/${row.id}`)
+                }
+            ]
         };
     },
-    mounted() {
-        this.getList();
-    },
     methods: {
-        info(row) {
-            this.$router.push(`/view/note/${row.id}`);
-        },
-        modify(row) {
-            this.$router.push(`/note/update/${row.id}`);
-        },
-        getList() {
-            getNotePage(this.query)
-                .then(data => {
-                    this.tableData = data.list;
-                    this.page.total = data.total;
-                })
-                .catch(error => {
-                    this.$alert(error, {
-                        confirmButtonText: "确定"
-                    });
-                });
-        },
-        resetQuery() {
-            this.query.title = "";
-            this.getList();
-        },
-        handleSizeChange(val) {
-            this.query.pageSize = val;
-            this.getList();
-        },
-        handleCurrentChange(val) {
-            this.query.pageNum = val;
-            this.getList();
-        },
         simple(row) {
             if (!row.content) {
                 return "";
@@ -125,8 +76,5 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-a {
-    color: #409eff;
 }
 </style>

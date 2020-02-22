@@ -1,100 +1,49 @@
 <template>
-    <div>
-        <el-form :inline="true" :model="query">
-            <el-form-item label="标题">
-                <el-input v-model="query.title" placeholder="标题"></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="getList">查询</el-button>
-                <el-button type="primary" @click="resetQuery">重置</el-button>
-            </el-form-item>
-        </el-form>
-        <el-table :data="tableData" max-height="1200" border style="width: 100%">
-            <el-table-column label="标题" width="300">
-                <template v-slot="scope">
-                    <a @click="info(scope.row)">{{ scope.row.title }}</a>
-                </template>
-            </el-table-column>
-            <el-table-column label="标签">
-                <template v-slot="scope">
-                    <el-tag v-for="tag in scope.row.tags" :key="tag.id">{{ tag.name }}</el-tag>
-                </template>
-            </el-table-column>
-            <el-table-column prop="specialName" label="专栏" width="300"></el-table-column>
-            <el-table-column prop="createTime" label="创建时间" width="300"></el-table-column>
-            <el-table-column label="内容" :formatter="simple">
-                <template v-slot="scope">
-                    <span class="content">{{ scope.row.content }}</span>
-                </template>
-            </el-table-column>
-            <el-table-column fixed="right" label="操作" width="50">
-                <template v-slot="scope">
-                    XXX
-                </template>
-            </el-table-column>
-        </el-table>
-        <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page="query.currentPage"
-            :page-sizes="[10, 20, 30, 40]"
-            :page-size="query.pageSize"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="page.total"
-        >
-        </el-pagination>
-    </div>
+    <query-table-page
+        :queryItems="queryItems"
+        :queryFunc="queryFunc"
+        :tableColumns="tableColumns"
+        :tableActions="tableActions"
+    />
 </template>
 
 <script>
+import QueryTablePage from "@/components/QueryTablePage/index";
 import { getAllArticlePage } from "@/api/article";
 
 export default {
     name: "ArticleList",
+    components: { QueryTablePage },
     data() {
         return {
-            tableData: [],
-            query: {
-                pageNum: 1,
-                pageSize: 10,
-                title: ""
-            },
-            page: {
-                total: 0
-            }
+            queryItems: [{ label: "标题", prop: "title", placeholder: "标题", value: "" }],
+            queryFunc: getAllArticlePage,
+            tableColumns: [
+                {
+                    label: "标题",
+                    prop: "title",
+                    type: "link",
+                    click: row => this.$router.push(`/view/article/${row.id}`)
+                },
+                {
+                    label: "标签",
+                    prop: "",
+                    type: "tags",
+                    nameProp: "name"
+                },
+                {
+                    label: "专栏",
+                    prop: "specialName"
+                },
+                {
+                    label: "创建时间",
+                    prop: "createTime"
+                }
+            ],
+            tableActions: []
         };
     },
-    mounted() {
-        this.getList();
-    },
     methods: {
-        getList() {
-            getAllArticlePage(this.query)
-                .then(data => {
-                    this.tableData = data.list;
-                    this.page.total = data.total;
-                })
-                .catch(error => {
-                    this.$alert(error, {
-                        confirmButtonText: "确定"
-                    });
-                });
-        },
-        resetQuery() {
-            this.query.name = "";
-            this.getList();
-        },
-        handleSizeChange(val) {
-            this.query.pageSize = val;
-            this.getList();
-        },
-        handleCurrentChange(val) {
-            this.query.pageNum = val;
-            this.getList();
-        },
-        info(row) {
-            this.$router.push(`/view/article/${row.id}`);
-        },
         simple(row) {
             if (!row.content) {
                 return "";
@@ -127,8 +76,5 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-a {
-    color: #409eff;
 }
 </style>

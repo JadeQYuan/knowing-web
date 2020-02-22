@@ -1,110 +1,59 @@
 <template>
-    <div class="k-content">
-        <el-form :inline="true" :model="query" class="demo-form-inline">
-            <el-form-item label="标题">
-                <el-input v-model="query.title" placeholder="标题"></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="getList">查询</el-button>
-                <el-button type="primary" @click="resetQuery">重置</el-button>
-            </el-form-item>
-        </el-form>
-        <el-table :data="tableData" max-height="1200" border style="width: 100%">
-            <el-table-column label="标题" width="300">
-                <template v-slot="scope">
-                    <a @click="info(scope.row)">{{ scope.row.title }}</a>
-                </template>
-            </el-table-column>
-            <el-table-column label="标签">
-                <template v-slot="scope">
-                    <el-tag v-for="tag in scope.row.tags" :key="tag.id">{{ tag.name }}</el-tag>
-                </template>
-            </el-table-column>
-            <el-table-column prop="specialName" label="专栏" width="300"></el-table-column>
-            <el-table-column prop="createTime" label="创建时间" width="300"></el-table-column>
-            <el-table-column fixed="right" label="操作" width="100">
-                <template v-slot="scope">
-                    <el-button @click="info(scope.row)" type="text" size="small">
-                        查看
-                    </el-button>
-                    <el-button @click="modify(scope.row)" type="text" size="small">
-                        编辑
-                    </el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-        <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page="query.currentPage"
-            :page-sizes="[10, 20, 30, 40]"
-            :page-size="query.pageSize"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="page.total"
-        >
-        </el-pagination>
-    </div>
+    <query-table-page
+        class="k-content"
+        :queryItems="queryItems"
+        :queryFunc="queryFunc"
+        :tableColumns="tableColumns"
+        :tableActions="tableActions"
+    />
 </template>
 
 <script>
+import QueryTablePage from "@/components/QueryTablePage/index";
 import { getMyArticlePage } from "@/api/article";
 
 export default {
     name: "ArticleList",
+    components: { QueryTablePage },
     data() {
         return {
-            articles: [],
-            tableData: [],
-            query: {
-                pageNum: 1,
-                pageSize: 10,
-                title: ""
-            },
-            page: {
-                total: 0
-            }
+            queryItems: [{ label: "标题", prop: "title", placeholder: "标题", value: "" }],
+            queryFunc: getMyArticlePage,
+            tableColumns: [
+                {
+                    label: "标题",
+                    prop: "title",
+                    type: "link",
+                    click: row => this.$router.push(`/view/article/${row.id}`)
+                },
+                {
+                    label: "标签",
+                    prop: "",
+                    type: "tags",
+                    nameProp: "name"
+                },
+                {
+                    label: "专栏",
+                    prop: "specialName"
+                },
+                {
+                    label: "创建时间",
+                    prop: "createTime"
+                }
+            ],
+            tableActions: [
+                {
+                    label: "查看",
+                    click: row => this.$router.push(`/view/article/${row.id}`)
+                },
+                {
+                    label: "编辑",
+                    click: row => this.$router.push(`/article/update/${row.id}`)
+                }
+            ]
         };
-    },
-    mounted() {
-        this.getList();
-    },
-    methods: {
-        info(row) {
-            this.$router.push(`/view/article/${row.id}`);
-        },
-        modify(row) {
-            this.$router.push(`/article/update/${row.id}`);
-        },
-        getList() {
-            getMyArticlePage(this.query)
-                .then(data => {
-                    this.tableData = data.list;
-                    this.page.total = data.total;
-                })
-                .catch(error => {
-                    this.$alert(error, {
-                        confirmButtonText: "确定"
-                    });
-                });
-        },
-        resetQuery() {
-            this.query.title = "";
-            this.getList();
-        },
-        handleSizeChange(val) {
-            this.query.pageSize = val;
-            this.getList();
-        },
-        handleCurrentChange(val) {
-            this.query.pageNum = val;
-            this.getList();
-        }
     }
 };
 </script>
 
-<style scoped lang="scss">
-a {
-    color: #409eff;
-}
-</style>
+<style scoped lang="scss"></style>

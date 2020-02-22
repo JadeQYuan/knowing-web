@@ -4,79 +4,46 @@
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>专栏</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-table :data="tableData">
-            <el-table-column label="名称" width="180">
-                <template v-slot="scope">
-                    <a @click="info(scope.row)">{{ scope.row.name }}</a>
-                </template>
-            </el-table-column>
-            <el-table-column prop="address" label="文章数" width="180"> </el-table-column>
-            <el-table-column prop="address" label="作者" width="180"> </el-table-column>
-            <el-table-column prop="createTime" label="创建时间" width="180"> </el-table-column>
-            <el-table-column prop="name" label="描述"> </el-table-column>
-        </el-table>
-        <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page="query.currentPage"
-            :page-sizes="[10, 20, 30, 40]"
-            :page-size="query.pageSize"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="page.total"
-        >
-        </el-pagination>
+        <query-table-page :queryFunc="queryFunc" :tableColumns="tableColumns" />
     </div>
 </template>
 
 <script>
+import QueryTablePage from "@/components/QueryTablePage";
 import { getSpecialPage } from "@/api/special";
 export default {
     name: "index",
+    components: { QueryTablePage },
     data() {
         return {
-            tableData: [],
-            query: {
-                pageNum: 1,
-                pageSize: 10
-            },
-            page: {
-                total: 0
-            }
+            queryFunc: getSpecialPage,
+            tableColumns: [
+                {
+                    label: "名称",
+                    prop: "name",
+                    type: "link",
+                    click: row => this.$router.push(`/specials/${row.id}`)
+                },
+                {
+                    label: "文章数",
+                    prop: ""
+                },
+                {
+                    label: "作者",
+                    prop: "createUserId"
+                },
+                {
+                    label: "创建时间",
+                    prop: "createTime"
+                },
+                {
+                    label: "描述",
+                    prop: "intro"
+                }
+            ]
         };
-    },
-    mounted() {
-        this.getList();
-    },
-    methods: {
-        info(row) {
-            this.$router.push(`/specials/${row.id}`);
-        },
-        getList() {
-            getSpecialPage(this.query)
-                .then(data => {
-                    this.tableData = data.list;
-                    this.page.total = data.total;
-                })
-                .catch(error => {
-                    this.$alert(error, {
-                        confirmButtonText: "确定"
-                    });
-                });
-        },
-        handleSizeChange(val) {
-            this.query.pageSize = val;
-            this.getList();
-        },
-        handleCurrentChange(val) {
-            this.query.pageNum = val;
-            this.getList();
-        }
     }
 };
 </script>
 
-<style scoped lang="scss">
-a {
-    color: #409eff;
-}
-</style>
+<style scoped lang="scss"></style>
