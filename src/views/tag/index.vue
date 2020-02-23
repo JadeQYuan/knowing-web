@@ -6,13 +6,13 @@
         </el-breadcrumb>
         <el-card class="categoryCard" v-for="category in tree" :key="category.id">
             <div slot="header">
-                <h3>{{ category.data.name ? category.data.name : "其它" }}</h3>
+                <h3>{{ category.name }}</h3>
             </div>
             <div class="tagCardBox">
                 <div v-for="tag in category.children" :key="tag.id" class="tagCard">
                     <el-card shadow="hover">
                         <div slot="header">
-                            <h4 @click="info(tag.data.id)">{{ tag.data.name }}</h4>
+                            <h4 @click="info(tag.id)">{{ tag.name }}</h4>
                         </div>
                         <p>{{ tag.data.intro }}</p>
                     </el-card>

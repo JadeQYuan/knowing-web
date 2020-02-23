@@ -32,7 +32,7 @@
 <script>
 import TagCategoryForm from "./TagCategoryForm";
 import TagForm from "./TagForm";
-import { getTagTree } from "@/api/tag";
+import { getAllTagTree } from "@/api/tag";
 
 export default {
     name: "TagManager",
@@ -43,7 +43,7 @@ export default {
             defaultProps: {
                 children: "children",
                 label: function(data) {
-                    return data.data.name || data.data;
+                    return data.name;
                 }
             },
             type: ""
@@ -62,7 +62,7 @@ export default {
             this.checkedId = data.id;
         },
         getTree() {
-            getTagTree().then(data => {
+            getAllTagTree().then(data => {
                 this.treeData = data;
             });
         },

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <query-form v-if="queryItems" :items="queryItems" @query="handleQuery" />
+        <query-form v-if="queryShow" :items="queryItems" @query="handleQuery" />
         <data-table :columns="tableColumns" :actions="tableActions" :data="tableData" />
         <data-page :pageParam="pageParam" @query="handleQuery" />
     </div>
@@ -25,6 +25,19 @@ export default {
             required: true
         }
     },
+    computed: {
+        queryShow() {
+            if (!this.queryItems) {
+                return false;
+            }
+            for (const item of this.queryItems) {
+                if (item.visible !== false) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    },
     data() {
         return {
             pageParam: {
@@ -41,15 +54,15 @@ export default {
     methods: {
         handleQuery() {
             let { pageNum, pageSize } = this.pageParam;
-            let param = { pageNum, pageSize };
+            let params = { pageNum, pageSize };
             if (this.queryItems) {
                 this.queryItems.forEach(item => {
-                    if (item.value.trim()) {
-                        param[item.prop] = item.value.trim();
+                    if (item.value && item.value.trim()) {
+                        params[item.prop] = item.value.trim();
                     }
                 });
             }
-            this.queryFunc(param).then(data => {
+            this.queryFunc(params).then(data => {
                 this.tableData = data.list;
                 this.pageParam.total = data.total;
             });

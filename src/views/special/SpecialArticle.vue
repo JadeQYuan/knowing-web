@@ -3,22 +3,32 @@
         <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/specials' }">专栏</el-breadcrumb-item>
-            <el-breadcrumb-item>专栏？</el-breadcrumb-item>
+            <el-breadcrumb-item>{{ special.name }}</el-breadcrumb-item>
         </el-breadcrumb>
-        <query-table-page :queryFunc="queryFunc" :tableColumns="tableColumns" />
+        <el-card>
+            {{ special.intro }}
+        </el-card>
+        <query-table-page
+            :queryItems="queryItems"
+            :queryFunc="queryFunc"
+            :tableColumns="tableColumns"
+        />
     </div>
 </template>
 
 <script>
 import QueryTablePage from "@/components/QueryTablePage";
-import { getMyArticlePage } from "@/api/article";
+import { getInfo } from "@/api/special";
+import { getUnderSpecialArticlesPage } from "@/api/article";
 
 export default {
     name: "SpecialArticle",
     components: { QueryTablePage },
     data() {
         return {
-            queryFunc: getMyArticlePage,
+            special: {},
+            queryItems: [{ prop: "specialId", value: this.$route.params.id, visible: false }],
+            queryFunc: getUnderSpecialArticlesPage,
             tableColumns: [
                 {
                     label: "标题",
@@ -37,6 +47,9 @@ export default {
                 }
             ]
         };
+    },
+    mounted() {
+        getInfo(this.$route.params.id).then(data => (this.special = data));
     }
 };
 </script>

@@ -1,26 +1,26 @@
 import request from "@/util/request";
 
-export function getNewestArticlePage(param) {
+export function getNewestArticlePage(params) {
     return request({
         method: "GET",
         url: "/articles/newest/paging",
-        params: param
+        params: params
     });
 }
 
-export function getAllArticlePage(param) {
+export function getAllArticlePage(params) {
     return request({
         method: "GET",
         url: "/articles/all/paging",
-        params: param
+        params: params
     });
 }
 
-export function getMyArticlePage(param) {
+export function getMyArticlePage(params) {
     return request({
         method: "GET",
         url: "/articles/my/paging",
-        params: param
+        params: params
     });
 }
 
@@ -44,5 +44,21 @@ export function updateArticle(id, data) {
         method: "PUT",
         url: `/articles/${id}`,
         data: data
+    });
+}
+
+export function getUnderSpecialArticlesPage(params) {
+    return request({
+        method: "GET",
+        url: "/articles/underSpecial",
+        params: params
+    });
+}
+
+export function getUnderTagArticlesPage(params) {
+    return request({
+        method: "GET",
+        url: "/articles/underTag",
+        params: params
     });
 }

@@ -23,14 +23,6 @@ export function updateTagCategory(id, data) {
     });
 }
 
-export function getTagList(param) {
-    return request({
-        method: "GET",
-        url: "/tags",
-        params: param
-    });
-}
-
 export function getPopularTagList() {
     return request({
         method: "GET",
@@ -65,6 +57,13 @@ export function getTagTree() {
     return request({
         method: "GET",
         url: "/tags/tree"
+    });
+}
+
+export function getAllTagTree() {
+    return request({
+        method: "GET",
+        url: "/tags/all/tree"
     });
 }
 

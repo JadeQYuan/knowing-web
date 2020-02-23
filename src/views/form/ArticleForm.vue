@@ -1,28 +1,46 @@
-<template>
+<template xmlns:el-col="http://www.w3.org/1999/html">
     <el-form :model="formModel" class="k-content">
         <el-form-item>
             <el-input v-model="formModel.title" placeholder="请输入标题"></el-input>
         </el-form-item>
-        <el-form-item label="专栏">
-            <el-select v-model="formModel.specialId" placeholder="请选择专栏">
-                <el-option
-                    v-for="item in specials"
-                    :key="item.id"
-                    :label="item.name"
-                    :value="item.id"
+        <el-form-item>
+            <el-col :span="24">
+                <el-select
+                    v-model="formModel.specialId"
+                    placeholder="请选择专栏"
+                    style="width: 100%"
                 >
-                </el-option>
-            </el-select>
+                    <el-option
+                        v-for="item in specials"
+                        :key="item.id"
+                        :label="item.name"
+                        :value="item.id"
+                    >
+                    </el-option>
+                </el-select>
+            </el-col>
         </el-form-item>
-        <el-form-item label="标签">
-            <el-tag v-for="tag in formModel.tags" :key="tag.id" closable @close="handleClose(tag)">
-                {{ tag.name }}
-            </el-tag>
-            <el-checkbox-group v-model="formModel.tags" v-show="tagSelectable">
-                <template v-for="tag in tags">
-                    <el-checkbox :label="tag" :key="tag.id">{{ tag.name }}</el-checkbox>
-                </template>
-            </el-checkbox-group>
+        <el-form-item>
+            <el-col :span="24">
+                <el-cascader
+                    style="width: 100%"
+                    v-model="formModel.tags"
+                    placeholder="请选择标签"
+                    :options="tags"
+                    :show-all-levels="false"
+                    :filterable="true"
+                    :props="{
+                        expandTrigger: 'hover',
+                        multiple: true,
+                        max: 5,
+                        label: 'name',
+                        value: 'id',
+                        emitPath: false
+                    }"
+                    clearable
+                >
+                </el-cascader>
+            </el-col>
         </el-form-item>
         <el-form-item>
             <!--        content : <el-input v-model="formModel.content"></el-input>-->
@@ -38,7 +56,7 @@
 <script>
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
-import { getTagList } from "@/api/tag";
+import { getTagTree } from "@/api/tag";
 import { getMySpecialList } from "@/api/special";
 import { addArticle, getInfo, updateArticle } from "@/api/article";
 
@@ -47,9 +65,6 @@ export default {
     computed: {
         btnName: function() {
             return this.id ? "更新" : "创建";
-        },
-        tagSelectable: function() {
-            return !this.id;
         }
     },
     data() {
@@ -74,7 +89,7 @@ export default {
         if (id) {
             getInfo(id).then(data => (this.formModel = data));
         } else {
-            getTagList().then(data => {
+            getTagTree().then(data => {
                 this.tags = data;
             });
             getMySpecialList().then(data => {
@@ -94,9 +109,6 @@ export default {
                 });
             }
         },
-        handleClose(tag) {
-            this.formModel.tags.remove(tag);
-        },
         back() {
             this.$router.go(-1);
         }
@@ -104,4 +116,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss"></style>
