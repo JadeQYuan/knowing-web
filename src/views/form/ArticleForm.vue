@@ -72,56 +72,26 @@ export default {
         const id = this.$route.params.id;
         this.id = id;
         if (id) {
-            getInfo(id)
-                .then(data => (this.formModel = data))
-                .catch(error => {
-                    this.$alert(error, {
-                        confirmButtonText: "确定"
-                    });
-                });
+            getInfo(id).then(data => (this.formModel = data));
         } else {
-            getTagList()
-                .then(data => {
-                    this.tags = data;
-                })
-                .catch(error => {
-                    this.$alert(error, {
-                        confirmButtonText: "确定"
-                    });
-                });
-            getMySpecialList()
-                .then(data => {
-                    this.specials = data;
-                })
-                .catch(error => {
-                    this.$alert(error, {
-                        confirmButtonText: "确定"
-                    });
-                });
+            getTagList().then(data => {
+                this.tags = data;
+            });
+            getMySpecialList().then(data => {
+                this.specials = data;
+            });
         }
     },
     methods: {
         submit() {
             if (this.id) {
-                updateArticle(this.id, this.formModel)
-                    .then(() => {
-                        this.$router.go(-1);
-                    })
-                    .catch(error => {
-                        this.$alert(error, {
-                            confirmButtonText: "确定"
-                        });
-                    });
+                updateArticle(this.id, this.formModel).then(() => {
+                    this.$router.go(-1);
+                });
             } else {
-                addArticle(this.formModel)
-                    .then(() => {
-                        this.$router.go(-1);
-                    })
-                    .catch(error => {
-                        this.$alert(error, {
-                            confirmButtonText: "确定"
-                        });
-                    });
+                addArticle(this.formModel).then(() => {
+                    this.$router.go(-1);
+                });
             }
         },
         handleClose(tag) {

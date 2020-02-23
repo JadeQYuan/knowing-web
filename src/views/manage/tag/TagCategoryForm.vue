@@ -34,37 +34,19 @@ export default {
     },
     mounted() {
         if (this.id) {
-            getTagCategory(this.id)
-                .then(data => (this.formModel = data))
-                .catch(error => {
-                    this.$alert(error, {
-                        confirmButtonText: "确定"
-                    });
-                });
+            getTagCategory(this.id).then(data => (this.formModel = data));
         }
     },
     methods: {
         commit() {
             if (!this.id) {
-                addTagCategory(this.formModel)
-                    .then(() => {
-                        this.$emit("refresh");
-                    })
-                    .catch(error => {
-                        this.$alert(error, {
-                            confirmButtonText: "确定"
-                        });
-                    });
+                addTagCategory(this.formModel).then(() => {
+                    this.$emit("refresh");
+                });
             } else {
-                updateTagCategory(this.id, this.formModel)
-                    .then(() => {
-                        this.$emit("refresh");
-                    })
-                    .catch(error => {
-                        this.$alert(error, {
-                            confirmButtonText: "确定"
-                        });
-                    });
+                updateTagCategory(this.id, this.formModel).then(() => {
+                    this.$emit("refresh");
+                });
             }
         }
     }

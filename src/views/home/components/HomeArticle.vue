@@ -56,19 +56,13 @@ export default {
         },
         getArticles() {
             const _this = this;
-            getNewestArticlePage(this.query)
-                .then(data => {
-                    _this.totalPage = data.totalPage;
-                    data.list.forEach(value => {
-                        _this.articles.push(value);
-                    });
-                    // Object.assign(_this.articles, data.list);
-                })
-                .catch(error => {
-                    this.$alert(error, {
-                        confirmButtonText: "确定"
-                    });
+            getNewestArticlePage(this.query).then(data => {
+                _this.totalPage = data.totalPage;
+                data.list.forEach(value => {
+                    _this.articles.push(value);
                 });
+                // Object.assign(_this.articles, data.list);
+            });
         },
         simple: function(res) {
             return res

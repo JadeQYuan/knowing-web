@@ -37,15 +37,9 @@ export default {
     },
     methods: {
         getTree() {
-            getTagTree()
-                .then(data => {
-                    this.tree = data;
-                })
-                .catch(error => {
-                    this.$alert(error, {
-                        confirmButtonText: "确定"
-                    });
-                });
+            getTagTree().then(data => {
+                this.tree = data;
+            });
         },
         info(tagId) {
             this.$router.push(`/tags/${tagId}`);

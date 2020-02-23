@@ -29,14 +29,17 @@ axiosInstance.interceptors.response.use(
             if (response.data.code === 200) {
                 return response.data.data;
             } else if (response.data.code === 30101 || response.data.code === 30102) {
-                MessageBox.alert("登录已过期！", "登录", {
+                MessageBox.alert(response.data.message, "登录", {
                     confirmButtonText: "确定"
                 }).then(() => {
                     store.commit("clearUser");
-                    location.reload();
+                    location.replace("/");
                 });
                 return Promise.reject(response.data.message);
             } else {
+                MessageBox.alert(response.data.message, "异常", {
+                    confirmButtonText: "确定"
+                });
                 return Promise.reject(response.data.message);
             }
         } else {

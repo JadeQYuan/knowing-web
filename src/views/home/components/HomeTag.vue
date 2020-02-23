@@ -23,15 +23,9 @@ export default {
     },
     methods: {
         getTags() {
-            getPopularTagList()
-                .then(data => {
-                    this.tags = data;
-                })
-                .catch(error => {
-                    this.$alert(error, {
-                        confirmButtonText: "确定"
-                    });
-                });
+            getPopularTagList().then(data => {
+                this.tags = data;
+            });
         },
         view(tagId) {
             if (tagId) {

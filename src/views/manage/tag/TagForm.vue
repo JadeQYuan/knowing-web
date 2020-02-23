@@ -46,46 +46,22 @@ export default {
     },
     mounted() {
         if (this.id) {
-            getTagInfo(this.id)
-                .then(data => (this.formModel = data))
-                .catch(error => {
-                    this.$alert(error, {
-                        confirmButtonText: "确定"
-                    });
-                });
+            getTagInfo(this.id).then(data => (this.formModel = data));
         }
-        getTagCategoryList()
-            .then(data => {
-                this.categoryList = data;
-            })
-            .catch(error => {
-                this.$alert(error, {
-                    confirmButtonText: "确定"
-                });
-            });
+        getTagCategoryList().then(data => {
+            this.categoryList = data;
+        });
     },
     methods: {
         commit() {
             if (!this.id) {
-                addTag(this.formModel)
-                    .then(() => {
-                        this.$emit("refresh");
-                    })
-                    .catch(error => {
-                        this.$alert(error, {
-                            confirmButtonText: "确定"
-                        });
-                    });
+                addTag(this.formModel).then(() => {
+                    this.$emit("refresh");
+                });
             } else {
-                updateTag(this.id, this.formModel)
-                    .then(() => {
-                        this.$emit("refresh");
-                    })
-                    .catch(error => {
-                        this.$alert(error, {
-                            confirmButtonText: "确定"
-                        });
-                    });
+                updateTag(this.id, this.formModel).then(() => {
+                    this.$emit("refresh");
+                });
             }
         }
     }

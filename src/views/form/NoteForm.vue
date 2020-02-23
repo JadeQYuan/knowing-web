@@ -42,37 +42,19 @@ export default {
         const id = this.$route.params.id;
         this.id = id;
         if (id) {
-            getInfo(id)
-                .then(data => (this.formModel = data))
-                .catch(error => {
-                    this.$alert(error, {
-                        confirmButtonText: "确定"
-                    });
-                });
+            getInfo(id).then(data => (this.formModel = data));
         }
     },
     methods: {
         submit() {
             if (this.id) {
-                updateNote(this.id, this.formModel)
-                    .then(() => {
-                        this.$router.go(-1);
-                    })
-                    .catch(error => {
-                        this.$alert(error, {
-                            confirmButtonText: "确定"
-                        });
-                    });
+                updateNote(this.id, this.formModel).then(() => {
+                    this.$router.go(-1);
+                });
             } else {
-                addNote(this.formModel)
-                    .then(() => {
-                        this.$router.go(-1);
-                    })
-                    .catch(error => {
-                        this.$alert(error, {
-                            confirmButtonText: "确定"
-                        });
-                    });
+                addNote(this.formModel).then(() => {
+                    this.$router.go(-1);
+                });
             }
         },
         back() {

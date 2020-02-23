@@ -49,16 +49,10 @@ export default {
                     }
                 });
             }
-            this.queryFunc(param)
-                .then(data => {
-                    this.tableData = data.list;
-                    this.pageParam.total = data.total;
-                })
-                .catch(error => {
-                    this.$alert(error, {
-                        confirmButtonText: "确定"
-                    });
-                });
+            this.queryFunc(param).then(data => {
+                this.tableData = data.list;
+                this.pageParam.total = data.total;
+            });
         }
     }
 };

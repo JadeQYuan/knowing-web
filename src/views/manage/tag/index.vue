@@ -30,9 +30,9 @@
 </template>
 
 <script>
+import TagCategoryForm from "./TagCategoryForm";
 import TagForm from "./TagForm";
 import { getTagTree } from "@/api/tag";
-import TagCategoryForm from "./TagCategoryForm";
 
 export default {
     name: "TagManager",

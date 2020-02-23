@@ -20,9 +20,9 @@
                 <el-footer v-if="form">
                     <knowing-copyright />
                 </el-footer>
+                <dance-tree />
             </template>
         </el-container>
-        <dance-tree />
     </el-scrollbar>
 </template>
 

@@ -32,15 +32,9 @@ export default {
         mavonEditor
     },
     mounted() {
-        getInfo(this.$route.params.id)
-            .then(data => {
-                this.model = data;
-            })
-            .catch(error => {
-                this.$alert(error, {
-                    confirmButtonText: "确定"
-                });
-            });
+        getInfo(this.$route.params.id).then(data => {
+            this.model = data;
+        });
     }
 };
 </script>
