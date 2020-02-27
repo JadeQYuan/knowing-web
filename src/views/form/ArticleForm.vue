@@ -43,8 +43,7 @@
             </el-col>
         </el-form-item>
         <el-form-item>
-            <!--        content : <el-input v-model="formModel.content"></el-input>-->
-            <mavon-editor v-model="formModel.content"></mavon-editor>
+            <md-editor mode="edit" :value="formModel.content" @save="save" />
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="submit">{{ btnName }}</el-button>
@@ -54,8 +53,7 @@
 </template>
 
 <script>
-import { mavonEditor } from "mavon-editor";
-import "mavon-editor/dist/css/index.css";
+import MdEditor from "@/components/MdEditor";
 import { getTagTree } from "@/api/tag";
 import { getMySpecialList } from "@/api/special";
 import { addArticle, getInfo, updateArticle } from "@/api/article";
@@ -81,7 +79,7 @@ export default {
         };
     },
     components: {
-        mavonEditor
+        MdEditor
     },
     mounted() {
         const id = this.$route.params.id;
@@ -98,6 +96,11 @@ export default {
         }
     },
     methods: {
+        save() {
+            if (this.id) {
+                this.submit();
+            }
+        },
         submit() {
             if (this.id) {
                 updateArticle(this.id, this.formModel).then(() => {

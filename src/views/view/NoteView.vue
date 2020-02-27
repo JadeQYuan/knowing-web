@@ -1,20 +1,12 @@
 <template>
     <div class="k-content">
         <div>{{ model.title }}</div>
-        <mavonEditor
-            :value="model.content"
-            :subfield="false"
-            defaultOpen="preview"
-            :editable="false"
-            :toolbarsFlag="false"
-            :navigation="true"
-        ></mavonEditor>
-        <!--    <div>{{ model.content }}</div>-->
+        <md-editor mode="view" :value="model.content" />
     </div>
 </template>
 
 <script>
-import { mavonEditor } from "mavon-editor";
+import MdEditor from "@/components/MdEditor";
 import { getInfo } from "@/api/note";
 
 export default {
@@ -29,7 +21,7 @@ export default {
         };
     },
     components: {
-        mavonEditor
+        MdEditor
     },
     mounted() {
         getInfo(this.$route.params.id).then(data => {

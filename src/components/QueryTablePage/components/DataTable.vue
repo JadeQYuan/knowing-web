@@ -9,6 +9,7 @@
                 :prop="column.prop"
                 :label="column.label"
                 :formatter="column.formatter"
+                :show-overflow-tooltip="true"
             />
             <el-table-column
                 v-else-if="column.type === 'link'"

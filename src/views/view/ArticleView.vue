@@ -6,20 +6,12 @@
                 {{ tag.name }}
             </el-tag>
         </div>
-        <!--    <div>{{ model.content }}</div>-->
-        <mavonEditor
-            :value="model.content"
-            :subfield="false"
-            defaultOpen="preview"
-            :editable="false"
-            :toolbarsFlag="false"
-            :navigation="true"
-        ></mavonEditor>
+        <md-editor :value="model.content" mode="view" />
     </div>
 </template>
 
 <script>
-import { mavonEditor } from "mavon-editor";
+import MdEditor from "@/components/MdEditor";
 import { getInfo } from "@/api/article";
 
 export default {
@@ -35,7 +27,7 @@ export default {
         };
     },
     components: {
-        mavonEditor
+        MdEditor
     },
     mounted() {
         getInfo(this.$route.params.id).then(data => {

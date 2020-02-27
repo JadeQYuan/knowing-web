@@ -4,8 +4,7 @@
             <el-input v-model="formModel.title" placeholder="请输入标题"></el-input>
         </el-form-item>
         <el-form-item>
-            <!--        content : <el-input v-model="formModel.content"></el-input>-->
-            <mavonEditor v-model="formModel.content"></mavonEditor>
+            <md-editor mode="edit" :value="formModel.content" @save="save" />
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="submit">{{ btnName }}</el-button>
@@ -15,8 +14,7 @@
 </template>
 
 <script>
-import { mavonEditor } from "mavon-editor";
-import "mavon-editor/dist/css/index.css";
+import MdEditor from "@/components/MdEditor";
 import { addNote, getInfo, updateNote } from "@/api/note";
 
 export default {
@@ -36,7 +34,7 @@ export default {
         };
     },
     components: {
-        mavonEditor
+        MdEditor
     },
     mounted() {
         const id = this.$route.params.id;
@@ -46,6 +44,11 @@ export default {
         }
     },
     methods: {
+        save() {
+            if (this.id) {
+                this.submit();
+            }
+        },
         submit() {
             if (this.id) {
                 updateNote(this.id, this.formModel).then(() => {
