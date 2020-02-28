@@ -11,6 +11,7 @@
         @imgAdd="imgAdd"
         @imgDel="imgDel"
         @save="save"
+        @change="change"
     />
 </template>
 
@@ -28,6 +29,7 @@ export default {
             return this.mode === "edit";
         }
     },
+    model: { prop: "value", event: "change" },
     data() {
         return {
             toolbars: {
@@ -71,6 +73,11 @@ export default {
         save() {
             if (this.editable) {
                 this.$emit("save");
+            }
+        },
+        change(value) {
+            if (this.editable) {
+                this.$emit("change", value);
             }
         },
         imgAdd() {},

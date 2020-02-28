@@ -1,71 +1,57 @@
 <template>
-    <el-form :model="formModel" class="k-content" label-width="120px">
-        <el-form-item label="名称">
-            <el-input v-model="formModel.name"></el-input>
-        </el-form-item>
-        <el-form-item label="描述">
-            <el-input v-model="formModel.intro" type="textarea"></el-input>
-        </el-form-item>
-        <el-form-item label="共享">
-            <el-radio v-model="formModel.shared" :label="true">是</el-radio>
-            <el-radio v-model="formModel.shared" :label="false">否</el-radio>
-        </el-form-item>
-        <el-form-item>
-            <el-button type="primary" @click="submit">{{ btnName }}</el-button>
-            <el-button @click="back">取消</el-button>
-        </el-form-item>
-    </el-form>
+    <data-form
+        class="k-content"
+        :id="id"
+        :insertFunc="insertFunc"
+        :getFunc="getFunc"
+        :updateFunc="updateFunc"
+        :formItems="formItems"
+        :rules="rules"
+        @submitted="submitted"
+    />
 </template>
 
 <script>
-import "mavon-editor/dist/css/index.css";
+import DataForm from "@/components/DataForm";
 import { addSpecial, getInfo, updateSpecial } from "@/api/special";
 
 export default {
     name: "NoteForm",
+    components: { DataForm },
     computed: {
-        btnName: function() {
-            return this.id ? "更新" : "创建";
+        id() {
+            return this.$route.params.id;
         }
     },
     data() {
         return {
-            id: "",
-            formModel: {
-                name: "",
-                intro: "",
-                shared: false
+            insertFunc: addSpecial,
+            getFunc: getInfo,
+            updateFunc: updateSpecial,
+            formItems: [
+                { label: "名称", type: "text", prop: "name" },
+                { label: "描述", type: "textarea", prop: "intro" },
+                { label: "共享", type: "switch", prop: "shared", value: true }
+            ],
+            rules: {
+                name: [
+                    { required: true, message: "请输入专栏名称", trigger: "blur" },
+                    { min: 3, max: 20, message: "长度在 3 到 20 个字符", trigger: "blur" }
+                ],
+                intro: [
+                    { required: true, message: "请填写专栏描述", trigger: "blur" },
+                    { min: 5, max: 200, message: "长度在 5 到 200 个字符", trigger: "blur" }
+                ],
+                shared: [{ required: true, message: "请选择是否共享", trigger: "change" }]
             }
         };
     },
-    mounted() {
-        const id = this.$route.params.id;
-        this.id = id;
-        if (id) {
-            getInfo(id).then(data => (this.formModel = data));
-        }
-    },
     methods: {
-        submit() {
-            if (this.id) {
-                updateSpecial(this.id, this.formModel).then(() => {
-                    this.$router.go(-1);
-                });
-            } else {
-                addSpecial(this.formModel).then(() => {
-                    this.$router.go(-1);
-                });
-            }
-        },
-        back() {
+        submitted() {
             this.$router.go(-1);
         }
     }
 };
 </script>
 
-<style scoped lang="scss">
-.el-form {
-    padding-top: 25px;
-}
-</style>
+<style scoped lang="scss"></style>

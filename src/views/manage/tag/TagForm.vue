@@ -1,68 +1,71 @@
 <template>
-    <div>
-        <el-form :model="formModel">
-            <el-form-item label="名称">
-                <el-input v-model="formModel.name"></el-input>
-            </el-form-item>
-            <el-select v-model="formModel.categoryId" placeholder="请选择分类">
-                <el-option
-                    v-for="item in categoryList"
-                    :key="item.id"
-                    :label="item.name"
-                    :value="item.id"
-                >
-                </el-option>
-            </el-select>
-            <el-form-item label="描述">
-                <el-input v-model="formModel.intro"></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="commit">{{ btnName }}</el-button>
-            </el-form-item>
-        </el-form>
-    </div>
+    <data-form
+        :id="id"
+        :insertFunc="insertFunc"
+        :getFunc="getFunc"
+        :updateFunc="updateFunc"
+        :formItems="formItems"
+        :rules="rules"
+        @submitted="refresh"
+    />
 </template>
 
 <script>
-import { addTag, getTagInfo, updateTag, getTagCategoryList } from "@/api/tag";
+import DataForm from "@/components/DataForm";
+import { addTag, getTagInfo, updateTag } from "@/api/tag";
 
 export default {
     name: "TagForm",
-    props: ["id"],
+    props: {
+        id: String,
+        tagCategoryList: Array
+    },
+    components: { DataForm },
     data() {
         return {
-            categoryList: [],
-            formModel: {
-                name: "",
-                categoryId: "",
-                intro: ""
+            insertFunc: addTag,
+            getFunc: getTagInfo,
+            updateFunc: updateTag,
+            formItems: [
+                { label: "名称", type: "text", prop: "name" },
+                {
+                    label: "分类",
+                    type: "select",
+                    prop: "categoryId",
+                    options: this.tagCategoryList,
+                    optionLabelProp: "name",
+                    optionValueProp: "id"
+                },
+                { label: "描述", type: "textarea", prop: "intro" }
+            ],
+            rules: {
+                name: [
+                    { required: true, message: "请输入名称", trigger: "blur" },
+                    { min: 2, max: 15, message: "长度在 2 到 15 个字符", trigger: "blur" }
+                ],
+                categoryId: [
+                    { required: true, message: "请选择分类", trigger: "change" },
+                    {
+                        validator: (rule, value, callback) => {
+                            if (value === "0") {
+                                callback(new Error("请选择分类"));
+                            } else {
+                                callback();
+                            }
+                        },
+                        trigger: "change"
+                    }
+                ],
+                intro: [
+                    { required: true, message: "请输入描述", trigger: "blur" },
+                    { min: 8, max: 100, message: "长度在 8 到 100 个字符", trigger: "blur" }
+                ]
             }
         };
     },
-    computed: {
-        btnName: function() {
-            return this.id ? "更新" : "创建";
-        }
-    },
-    mounted() {
-        if (this.id) {
-            getTagInfo(this.id).then(data => (this.formModel = data));
-        }
-        getTagCategoryList().then(data => {
-            this.categoryList = data;
-        });
-    },
     methods: {
-        commit() {
-            if (!this.id) {
-                addTag(this.formModel).then(() => {
-                    this.$emit("refresh");
-                });
-            } else {
-                updateTag(this.id, this.formModel).then(() => {
-                    this.$emit("refresh");
-                });
-            }
+        refresh() {
+            this.$emit("refresh");
         }
     }
 };

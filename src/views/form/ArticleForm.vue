@@ -1,118 +1,85 @@
 <template xmlns:el-col="http://www.w3.org/1999/html">
-    <el-form :model="formModel" class="k-content">
-        <el-form-item>
-            <el-input v-model="formModel.title" placeholder="请输入标题"></el-input>
-        </el-form-item>
-        <el-form-item>
-            <el-col :span="24">
-                <el-select
-                    v-model="formModel.specialId"
-                    placeholder="请选择专栏"
-                    style="width: 100%"
-                >
-                    <el-option
-                        v-for="item in specials"
-                        :key="item.id"
-                        :label="item.name"
-                        :value="item.id"
-                    >
-                    </el-option>
-                </el-select>
-            </el-col>
-        </el-form-item>
-        <el-form-item>
-            <el-col :span="24">
-                <el-cascader
-                    style="width: 100%"
-                    v-model="formModel.tags"
-                    placeholder="请选择标签"
-                    :options="tags"
-                    :show-all-levels="false"
-                    :filterable="true"
-                    :props="{
-                        expandTrigger: 'hover',
-                        multiple: true,
-                        max: 5,
-                        label: 'name',
-                        value: 'id',
-                        emitPath: false
-                    }"
-                    clearable
-                >
-                </el-cascader>
-            </el-col>
-        </el-form-item>
-        <el-form-item>
-            <md-editor mode="edit" :value="formModel.content" @save="save" />
-        </el-form-item>
-        <el-form-item>
-            <el-button type="primary" @click="submit">{{ btnName }}</el-button>
-            <el-button @click="back">取消</el-button>
-        </el-form-item>
-    </el-form>
+    <data-form
+        class="k-content"
+        :id="id"
+        :insertFunc="insertFunc"
+        :getFunc="getFunc"
+        :updateFunc="updateFunc"
+        :formItems="formItems"
+        :rules="rules"
+        @submitted="submitted"
+    />
 </template>
 
 <script>
-import MdEditor from "@/components/MdEditor";
+import DataForm from "@/components/DataForm";
 import { getTagTree } from "@/api/tag";
 import { getMySpecialList } from "@/api/special";
 import { addArticle, getInfo, updateArticle } from "@/api/article";
 
 export default {
     name: "ArticleForm",
+    components: { DataForm },
     computed: {
-        btnName: function() {
-            return this.id ? "更新" : "创建";
+        id() {
+            return this.$route.params.id;
         }
     },
     data() {
         return {
-            id: "",
-            formModel: {
-                title: "",
-                tags: [],
-                content: "",
-                specialId: ""
-            },
-            specials: [],
-            tags: []
+            insertFunc: addArticle,
+            getFunc: getInfo,
+            updateFunc: updateArticle,
+            formItems: [
+                { label: "标题", type: "text", prop: "title" },
+                {
+                    label: "专栏",
+                    type: "select",
+                    prop: "specialId",
+                    optionsFunc: getMySpecialList,
+                    optionLabelProp: "name",
+                    optionValueProp: "id"
+                },
+                {
+                    label: "标签",
+                    type: "cascade",
+                    prop: "tags",
+                    value: [],
+                    options: [],
+                    optionsFunc: getTagTree,
+                    optionLabelProp: "name",
+                    optionValueProp: "id"
+                },
+                { label: "内容", type: "editor", prop: "content" }
+            ],
+            rules: {
+                title: [
+                    { required: true, message: "请输入标题", trigger: "blur" },
+                    { min: 3, max: 20, message: "长度在 3 到 20 个字符", trigger: "blur" }
+                ],
+                tags: [
+                    { required: true, message: "请选择标签", trigger: "change" },
+                    {
+                        validator: (rule, value, callback) => {
+                            console.log(value);
+                            if (value.length > 5) {
+                                callback(new Error("最多只能选择5个标签"));
+                            } else {
+                                callback();
+                            }
+                        },
+                        trigger: "change"
+                    }
+                ],
+                content: [
+                    { required: true, message: "请填写内容", trigger: "blur" },
+                    { min: 20, message: "长度不能小于 20", trigger: "blur" }
+                ]
+            }
         };
     },
-    components: {
-        MdEditor
-    },
-    mounted() {
-        const id = this.$route.params.id;
-        this.id = id;
-        if (id) {
-            getInfo(id).then(data => (this.formModel = data));
-        } else {
-            getTagTree().then(data => {
-                this.tags = data;
-            });
-            getMySpecialList().then(data => {
-                this.specials = data;
-            });
-        }
-    },
     methods: {
-        save() {
-            if (this.id) {
-                this.submit();
-            }
-        },
-        submit() {
-            if (this.id) {
-                updateArticle(this.id, this.formModel).then(() => {
-                    this.$router.go(-1);
-                });
-            } else {
-                addArticle(this.formModel).then(() => {
-                    this.$router.go(-1);
-                });
-            }
-        },
-        back() {
+        submitted() {
             this.$router.go(-1);
         }
     }

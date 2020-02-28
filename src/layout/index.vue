@@ -69,7 +69,9 @@ export default {
 }
 .el-main {
     padding: 0;
-    min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 40px);
+    /*background-color: #090a0f;*/
+    /*opacity: 0.8;*/
 }
 .el-footer {
     background-color: #909399;

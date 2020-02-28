@@ -1,53 +1,44 @@
 <template>
-    <div>
-        <el-form :model="formModel">
-            <el-form-item> 名称 : <el-input v-model="formModel.name"></el-input> </el-form-item>
-            <el-form-item label="共享">
-                <el-radio v-model="formModel.shared" :label="true">是</el-radio>
-                <el-radio v-model="formModel.shared" :label="false">否</el-radio>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="commit">{{ btnName }}</el-button>
-            </el-form-item>
-        </el-form>
-    </div>
+    <data-form
+        :id="id"
+        :insertFunc="insertFunc"
+        :getFunc="getFunc"
+        :updateFunc="updateFunc"
+        :formItems="formItems"
+        :rules="rules"
+        @submitted="refresh"
+    />
 </template>
 
 <script>
+import DataForm from "@/components/DataForm";
 import { addTagCategory, getTagCategory, updateTagCategory } from "@/api/tag";
 
 export default {
     name: "TagCategoryForm",
     props: ["id"],
+    components: { DataForm },
     data() {
         return {
-            formModel: {
-                name: "",
-                shared: ""
+            insertFunc: addTagCategory,
+            getFunc: getTagCategory,
+            updateFunc: updateTagCategory,
+            formItems: [
+                { label: "名称", type: "text", prop: "name" },
+                { label: "共享", type: "switch", prop: "shared", value: true }
+            ],
+            rules: {
+                name: [
+                    { required: true, message: "请输入名称", trigger: "blur" },
+                    { min: 2, max: 12, message: "长度在 2 到 12 个字符", trigger: "blur" }
+                ],
+                shared: [{ required: true, message: "请选择是否共享", trigger: "change" }]
             }
         };
     },
-    computed: {
-        btnName: function() {
-            return this.id ? "更新" : "创建";
-        }
-    },
-    mounted() {
-        if (this.id) {
-            getTagCategory(this.id).then(data => (this.formModel = data));
-        }
-    },
     methods: {
-        commit() {
-            if (!this.id) {
-                addTagCategory(this.formModel).then(() => {
-                    this.$emit("refresh");
-                });
-            } else {
-                updateTagCategory(this.id, this.formModel).then(() => {
-                    this.$emit("refresh");
-                });
-            }
+        refresh() {
+            this.$emit("refresh");
         }
     }
 };

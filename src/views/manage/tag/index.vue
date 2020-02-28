@@ -16,14 +16,15 @@
             <tag-form
                 v-if="type === 'Tag'"
                 :id="checkedId"
-                v-on:refresh="refresh"
+                :tagCategoryList="tagCategoryList"
+                v-on:refresh="refresh(false)"
                 :key="checkedId"
             />
             <tag-category-form
                 v-if="type === 'TagCategory'"
                 :id="checkedId"
                 :key="checkedId"
-                v-on:refresh="refresh"
+                v-on:refresh="refresh(true)"
             />
         </el-col>
     </el-row>
@@ -32,7 +33,7 @@
 <script>
 import TagCategoryForm from "./TagCategoryForm";
 import TagForm from "./TagForm";
-import { getAllTagTree } from "@/api/tag";
+import { getAllTagTree, getTagCategoryList } from "@/api/tag";
 
 export default {
     name: "TagManager",
@@ -40,6 +41,7 @@ export default {
         return {
             checkedId: "",
             treeData: [],
+            tagCategoryList: [],
             defaultProps: {
                 children: "children",
                 label: function(data) {
@@ -55,6 +57,7 @@ export default {
     },
     mounted() {
         this.getTree();
+        this.getTagCategoryList();
     },
     methods: {
         handleNodeClick(data) {
@@ -66,14 +69,24 @@ export default {
                 this.treeData = data;
             });
         },
+        getTagCategoryList() {
+            getTagCategoryList().then(data => {
+                this.tagCategoryList = data;
+            });
+        },
         addTagCategory() {
+            this.checkedId = "";
             this.type = "TagCategory";
         },
         addTag() {
+            this.checkedId = "";
             this.type = "Tag";
         },
-        refresh() {
+        refresh(all) {
             this.getTree();
+            if (all) {
+                this.getTagCategoryList();
+            }
         }
     }
 };
@@ -83,6 +96,9 @@ export default {
 .el-container {
     .el-row {
         width: 100%;
+        .el-col {
+            padding-top: 20px;
+        }
         .el-tree {
             padding: 10px;
             border: 2px solid #545c64;
