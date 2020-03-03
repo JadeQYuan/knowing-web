@@ -63,7 +63,7 @@
                         expandTrigger: 'hover',
                         multiple: true,
                         label: item.optionLabelProp,
-                        value: item.optionValueProp,
+                        value: item.optionValueProp ? item.optionValueProp : item,
                         emitPath: false
                     }"
                     clearable

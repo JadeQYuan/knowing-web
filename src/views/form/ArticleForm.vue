@@ -48,7 +48,7 @@ export default {
                     options: [],
                     optionsFunc: getTagTree,
                     optionLabelProp: "name",
-                    optionValueProp: "id"
+                    optionValueProp: ""
                 },
                 { label: "内容", type: "editor", prop: "content" }
             ],
