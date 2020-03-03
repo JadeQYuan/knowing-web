@@ -61,7 +61,6 @@ export default {
                     { required: true, message: "请选择标签", trigger: "change" },
                     {
                         validator: (rule, value, callback) => {
-                            console.log(value);
                             if (value.length > 5) {
                                 callback(new Error("最多只能选择5个标签"));
                             } else {
