@@ -41,5 +41,10 @@
             "npm run lint",
             "git add"
         ]
-    }
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not ie <= 8"
+    ]
 }
