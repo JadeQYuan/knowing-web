@@ -6,7 +6,9 @@
                 <nav-bar />
             </el-header>
             <el-main>
-                <router-view />
+                <transition name="fade">
+                    <router-view />
+                </transition>
             </el-main>
             <snow-down />
             <dance-tree />
@@ -49,5 +51,13 @@ export default {
         padding: 0;
         background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
     }
+}
+.fade-enter-active,
+.fade-leave-active {
+    transition: all 0.25s;
+}
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
 }
 </style>

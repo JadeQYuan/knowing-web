@@ -5,7 +5,7 @@
                 {{ article.title }}
             </span>
             <span class="special" v-if="article.specialId" @click="viewSpecial">
-                【 {{ article.specialName }} 】
+                【 <a class="special-name">{{ article.specialName }}</a> 】
             </span>
         </div>
         <p class="content" @click="viewArticle">{{ article.content }}</p>
@@ -48,6 +48,8 @@ export default {
 <style scoped lang="scss">
 .main {
     height: 120px;
+    padding: 15px;
+    border-radius: 5px;
     background-color: #dbdbdb;
     .head {
         padding-bottom: 10px;
@@ -57,6 +59,9 @@ export default {
         }
         .special {
             padding-left: 25px;
+            .special-name {
+                color: #409eff;
+            }
         }
     }
     .content {

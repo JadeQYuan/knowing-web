@@ -1,10 +1,8 @@
 <template>
     <div class="k-article infinite-list-wrapper" style="overflow:auto">
         <ul class="list" v-infinite-scroll="load" :infinite-scroll-disabled="true">
-            <!--            <li><el-divider></el-divider></li>-->
             <li v-for="article in articles" class="list-item" :key="article.id">
-                <article-card :article="article" />
-                <!--                <el-divider></el-divider>-->
+                <article-card :article="article" class="card" />
             </li>
         </ul>
         <p v-if="loading">
@@ -33,7 +31,7 @@ export default {
             totalPage: 1,
             query: {
                 pageNum: 1,
-                pageSize: 5
+                pageSize: 15
             }
         };
     },
@@ -71,13 +69,8 @@ export default {
 <style scoped lang="scss">
 .k-article {
     padding: 20px 0;
-    .el-divider {
-        &:first-child {
-            margin-bottom: 0;
-        }
-    }
-    .k-article-card {
-        padding: 5px 0;
+    .card {
+        margin-bottom: 24px;
     }
     p {
         text-align: center;

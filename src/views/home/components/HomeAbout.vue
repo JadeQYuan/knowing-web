@@ -36,6 +36,7 @@ export default {
 .about {
     width: 200px;
     height: 250px;
+    margin-top: 75px;
     background-color: #dbdbdb;
     text-align: center;
     .avatar {

@@ -1,10 +1,13 @@
 <template>
     <div class="k-content">
-        <div>{{ model.title }}</div>
-        <div>
-            <el-tag v-for="tag in model.tags" :key="tag.id">
-                {{ tag.name }}
-            </el-tag>
+        <div class="header-wrapper">
+            <h2>{{ model.title }}</h2>
+            <time>{{ model.createTime }}</time>
+            <div class="tag-wrapper">
+                <el-tag v-for="tag in model.tags" :key="tag.id">
+                    {{ tag.name }}
+                </el-tag>
+            </div>
         </div>
         <md-editor :value="model.content" mode="view" />
     </div>
@@ -40,4 +43,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.header-wrapper {
+    padding: 10px 0;
+    background-color: #ddd;
+    text-align: center;
+    .tag-wrapper {
+        margin-top: 10px;
+    }
+}
+</style>
