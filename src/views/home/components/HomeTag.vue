@@ -44,8 +44,8 @@ export default {
     div {
         padding: 10px 10px;
         border-radius: 15px;
-        text-shadow: 5px 5px 5px #a9b7c6;
         font-size: 14px;
+        text-shadow: 5px 5px 5px #a9b7c6;
         &:hover {
             background-color: #a9b7c6;
         }

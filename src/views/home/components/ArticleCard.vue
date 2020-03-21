@@ -50,8 +50,8 @@ export default {
     height: 120px;
     background-color: #dbdbdb;
     .head {
-        font-size: 18px;
         padding-bottom: 10px;
+        font-size: 18px;
         .title {
             font-weight: 500;
         }
@@ -60,11 +60,11 @@ export default {
         }
     }
     .content {
+        display: -webkit-box;
+        overflow: hidden;
         height: 54px;
         font-size: 14px;
         font-weight: 300;
-        overflow: hidden;
-        display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
     }
@@ -77,9 +77,9 @@ export default {
             }
         }
         .time {
-            font-weight: 200;
             display: inline-block;
             float: right;
+            font-weight: 200;
         }
     }
 }

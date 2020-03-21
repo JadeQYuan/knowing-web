@@ -26,8 +26,8 @@ export default {
         position: absolute;
         width: 10px;
         height: 10px;
-        background: white;
         border-radius: 50%;
+        background: white;
         opacity: 0.5;
 
         @for $i from 1 through $total {

@@ -37,16 +37,16 @@ export default {
 <style scoped lang="scss">
 .wrapper {
     display: flex;
-    min-height: 100vh;
     flex-direction: column;
+    min-height: 100vh;
     .el-header {
         flex: 0 0 40px;
-        background-color: #a9b7c6;
         padding: 0;
+        background-color: #a9b7c6;
     }
     .el-main {
-        padding: 0;
         flex: 1;
+        padding: 0;
         background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
     }
 }

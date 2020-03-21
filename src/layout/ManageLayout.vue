@@ -34,20 +34,20 @@ export default {
 <style scoped lang="scss">
 .wrapper {
     display: flex;
-    min-height: 100vh;
     flex-direction: column;
+    min-height: 100vh;
 }
 .el-header {
-    background-color: #a9b7c6;
     padding: 0;
+    background-color: #a9b7c6;
 }
 .el-aside {
     min-height: calc(100vh - 40px);
     background-color: #545c64;
 }
 .el-main {
-    padding: 0;
     flex: 1;
+    padding: 0;
     /*min-height: calc(100vh - 40px);*/
     /*background-color: #090a0f;*/
     /*opacity: 0.8;*/

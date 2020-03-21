@@ -39,16 +39,16 @@ export default {
 
 .text-wrapper {
     .text {
-        text-align: center;
-        font-size: 3em;
-        font-weight: 600;
-        color: #fff;
         opacity: 0.95;
-        font-family: "Baloo Bhaijaan", cursive;
         box-shadow: 0 0.3px 0.7px rgba(0, 0, 0, 0.126), 0 0.9px 1.7px rgba(0, 0, 0, 0.179),
             0 1.8px 3.5px rgba(0, 0, 0, 0.224), 0 3.7px 7.3px rgba(0, 0, 0, 0.277),
             0 10px 20px rgba(0, 0, 0, 0.4);
         backdrop-filter: blur(20px);
+        font-family: "Baloo Bhaijaan", cursive;
+        font-size: 3em;
+        font-weight: 600;
+        color: #fff;
+        text-align: center;
         transition: 0.5s ease;
 
         &:hover {

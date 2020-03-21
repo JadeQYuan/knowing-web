@@ -25,21 +25,21 @@ export default {
 <style scoped lang="scss">
 .trunk,
 .trunk div {
-    background: #fff;
+    position: fixed;
     width: 65px;
     height: 10px;
-    position: fixed;
     margin-left: -10px;
+    background: #fff;
+    transform-origin: 5px 5px;
     animation-name: rot;
     animation-duration: 2.02s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
-    transform-origin: 5px 5px;
     animation-timing-function: ease-in-out;
 }
 .trunk {
-    bottom: 3%;
     left: 8%;
+    bottom: 3%;
     animation-name: rot-root;
     animation-duration: 2.5s;
 }

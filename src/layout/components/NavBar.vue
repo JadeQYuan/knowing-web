@@ -127,8 +127,8 @@ export default {
     span.navBtn {
         padding-left: 5px;
         padding-right: 5px;
-        font-size: 20px;
         line-height: 2em;
+        font-size: 20px;
         color: #dbdbdb;
         &:hover {
             color: #5d5d5d;

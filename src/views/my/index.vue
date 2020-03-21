@@ -12,8 +12,8 @@ export default {
 
 <style scoped lang="scss">
 div {
+    padding-top: 50px;
     font-size: 24px;
     text-align: center;
-    padding-top: 50px;
 }
 </style>

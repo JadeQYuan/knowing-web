@@ -35,8 +35,8 @@ export default {
 <style scoped lang="scss">
 .about {
     width: 200px;
-    background-color: #dbdbdb;
     height: 250px;
+    background-color: #dbdbdb;
     text-align: center;
     .avatar {
         img {
@@ -45,8 +45,8 @@ export default {
         }
     }
     .connect {
-        text-align: center;
         line-height: 3.5em;
+        text-align: center;
         span {
             display: inline-block;
             width: 26px;
