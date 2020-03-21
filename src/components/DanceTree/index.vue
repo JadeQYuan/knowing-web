@@ -25,8 +25,8 @@ export default {
 <style scoped lang="scss">
 .trunk,
 .trunk div {
-    background: #136086;
-    width: 100px;
+    background: #fff;
+    width: 65px;
     height: 10px;
     position: fixed;
     margin-left: -10px;
@@ -36,16 +36,15 @@ export default {
     animation-direction: alternate;
     transform-origin: 5px 5px;
     animation-timing-function: ease-in-out;
-    z-index: -1;
 }
 .trunk {
-    bottom: 5%;
-    left: 10%;
+    bottom: 3%;
+    left: 8%;
     animation-name: rot-root;
     animation-duration: 2.5s;
 }
 .trunk div {
-    left: 100px;
+    left: 65px;
 }
 .trunk div:nth-child(2) {
     animation-name: rot-inv;

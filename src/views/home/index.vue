@@ -1,8 +1,5 @@
 <template>
     <div>
-        <el-row>
-            <main-welcome></main-welcome>
-        </el-row>
         <el-row class="k-content">
             <el-col :span="3">
                 <main-tag></main-tag>
@@ -20,7 +17,6 @@
 </template>
 
 <script>
-import MainWelcome from "./components/HomeWelcome";
 import MainTag from "./components/HomeTag";
 import MainImage from "./components/HomeImage";
 import MainArticle from "./components/HomeArticle";
@@ -29,7 +25,6 @@ import MainAbout from "./components/HomeAbout";
 export default {
     name: "Home",
     components: {
-        MainWelcome,
         MainTag,
         MainImage,
         MainArticle,

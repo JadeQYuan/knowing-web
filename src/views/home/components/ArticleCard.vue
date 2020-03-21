@@ -48,6 +48,7 @@ export default {
 <style scoped lang="scss">
 .main {
     height: 120px;
+    background-color: #dbdbdb;
     .head {
         font-size: 18px;
         padding-bottom: 10px;

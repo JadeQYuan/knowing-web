@@ -34,13 +34,14 @@ export default {
 
 <style scoped lang="scss">
 .about {
-    width: 300px;
+    width: 200px;
     background-color: #dbdbdb;
-    height: 350px;
+    height: 250px;
+    text-align: center;
     .avatar {
         img {
-            width: 300px;
-            height: 300px;
+            width: 200px;
+            height: 200px;
         }
     }
     .connect {

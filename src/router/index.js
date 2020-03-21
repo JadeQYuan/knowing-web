@@ -5,8 +5,6 @@ import { getUserInfo } from "@/api/user";
 
 Vue.use(VueRouter);
 
-import Layout from "@/layout";
-
 // TODO
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
@@ -26,7 +24,7 @@ const routes = [
     },
     {
         path: "/",
-        component: Layout,
+        component: () => import("@/layout/CommonLayout"),
         children: [
             {
                 path: "/",
@@ -112,29 +110,35 @@ const routes = [
                 path: "my/note",
                 name: "noteList",
                 component: () => import("@/views/my/NoteList.vue")
-            },
+            }
+        ]
+    },
+    {
+        path: "/manage",
+        component: () => import("@/layout/ManageLayout"),
+        children: [
             {
-                path: "manage",
+                path: "",
                 name: "Management",
                 component: () => import("@/views/manage")
             },
             {
-                path: "manage/special",
+                path: "special",
                 name: "SpecialManager",
                 component: () => import("@/views/manage/SpecialList")
             },
             {
-                path: "manage/tag",
+                path: "tag",
                 name: "TagManager",
                 component: () => import("@/views/manage/tag")
             },
             {
-                path: "manage/article",
+                path: "article",
                 name: "ArticleManager",
                 component: () => import("@/views/manage/ArticleList")
             },
             {
-                path: "manage/note",
+                path: "note",
                 name: "NoteManager",
                 component: () => import("@/views/manage/NoteList")
             }
