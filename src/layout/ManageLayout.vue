@@ -19,7 +19,6 @@ import NavBar from "@/layout/components/NavBar";
 import MenuBar from "./components/MenuBar";
 export default {
     name: "ManageLayout",
-    computed: {},
     data() {
         return {
             headerHeight: "40px"

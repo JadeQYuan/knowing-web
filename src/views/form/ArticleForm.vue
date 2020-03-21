@@ -20,10 +20,8 @@ import { addArticle, getInfo, updateArticle } from "@/api/article";
 export default {
     name: "ArticleForm",
     components: { DataForm },
-    computed: {
-        id() {
-            return this.$route.params.id;
-        }
+    props: {
+        id: String
     },
     data() {
         return {

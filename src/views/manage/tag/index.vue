@@ -37,6 +37,10 @@ import { getAllTagTree, getTagCategoryList } from "@/api/tag";
 
 export default {
     name: "TagManager",
+    components: {
+        TagCategoryForm,
+        TagForm
+    },
     data() {
         return {
             checkedId: "",
@@ -50,10 +54,6 @@ export default {
             },
             type: ""
         };
-    },
-    components: {
-        TagCategoryForm,
-        TagForm
     },
     mounted() {
         this.getTree();

@@ -39,6 +39,7 @@ const routes = [
             {
                 path: "specials/:id",
                 name: "specialArticle",
+                props: true,
                 component: () => import("@/views/special/SpecialArticle")
             },
             {
@@ -49,6 +50,7 @@ const routes = [
             {
                 path: "tags/:id",
                 name: "tagArticle",
+                props: true,
                 component: () => import("@/views/tag/TagArticle")
             },
             {
@@ -59,6 +61,7 @@ const routes = [
             {
                 path: "article/update/:id",
                 name: "articleUpdate",
+                props: true,
                 component: () => import("@/views/form/ArticleForm.vue")
             },
             {
@@ -69,6 +72,7 @@ const routes = [
             {
                 path: "note/update/:id",
                 name: "noteUpdate",
+                props: true,
                 component: () => import("@/views/form/NoteForm.vue")
             },
             {
@@ -79,16 +83,19 @@ const routes = [
             {
                 path: "special/update/:id",
                 name: "specialUpdate",
+                props: true,
                 component: () => import("@/views/form/SpecialForm.vue")
             },
             {
                 path: "view/article/:id",
                 name: "articleView",
+                props: true,
                 component: () => import("@/views/view/ArticleView.vue")
             },
             {
                 path: "view/note/:id",
                 name: "noteView",
+                props: true,
                 component: () => import("@/views/view/NoteView.vue")
             },
             {

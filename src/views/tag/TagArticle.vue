@@ -24,10 +24,13 @@ import { getUnderTagArticlesPage } from "@/api/article";
 export default {
     name: "TagArticle",
     components: { QueryTablePage },
+    props: {
+        id: String
+    },
     data() {
         return {
             tag: {},
-            queryItems: [{ prop: "tagId", value: this.$route.params.id, visible: false }],
+            queryItems: [{ prop: "tagId", value: this.id, visible: false }],
             queryFunc: getUnderTagArticlesPage,
             tableColumns: [
                 {

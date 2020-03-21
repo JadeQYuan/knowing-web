@@ -24,10 +24,13 @@ import { getUnderSpecialArticlesPage } from "@/api/article";
 export default {
     name: "SpecialArticle",
     components: { QueryTablePage },
+    props: {
+        id: String
+    },
     data() {
         return {
             special: {},
-            queryItems: [{ prop: "specialId", value: this.$route.params.id, visible: false }],
+            queryItems: [{ prop: "specialId", value: this.id, visible: false }],
             queryFunc: getUnderSpecialArticlesPage,
             tableColumns: [
                 {

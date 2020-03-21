@@ -23,13 +23,8 @@ export default {
     components: {
         mavonEditor
     },
-    props: ["mode", "value"],
-    computed: {
-        editable() {
-            return this.mode === "edit";
-        }
-    },
     model: { prop: "value", event: "change" },
+    props: ["mode", "value"],
     data() {
         return {
             toolbars: {
@@ -68,6 +63,11 @@ export default {
                 // preview: true // 预览
             }
         };
+    },
+    computed: {
+        editable() {
+            return this.mode === "edit";
+        }
     },
     methods: {
         save() {

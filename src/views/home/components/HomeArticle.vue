@@ -1,10 +1,10 @@
 <template>
     <div class="k-article infinite-list-wrapper" style="overflow:auto">
         <ul class="list" v-infinite-scroll="load" :infinite-scroll-disabled="true">
-            <li><el-divider></el-divider></li>
+            <!--            <li><el-divider></el-divider></li>-->
             <li v-for="article in articles" class="list-item" :key="article.id">
                 <article-card :article="article" />
-                <el-divider></el-divider>
+                <!--                <el-divider></el-divider>-->
             </li>
         </ul>
         <p v-if="loading">

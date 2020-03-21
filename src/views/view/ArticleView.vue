@@ -16,6 +16,12 @@ import { getInfo } from "@/api/article";
 
 export default {
     name: "ArticleView",
+    components: {
+        MdEditor
+    },
+    props: {
+        id: String
+    },
     data() {
         return {
             model: {
@@ -26,11 +32,8 @@ export default {
             }
         };
     },
-    components: {
-        MdEditor
-    },
     mounted() {
-        getInfo(this.$route.params.id).then(data => {
+        getInfo(this.id).then(data => {
             this.model = data;
         });
     }

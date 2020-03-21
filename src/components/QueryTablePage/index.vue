@@ -25,6 +25,16 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+            pageParam: {
+                pageNum: 1,
+                pageSize: 10,
+                total: 0
+            },
+            tableData: []
+        };
+    },
     computed: {
         queryShow() {
             if (!this.queryItems) {
@@ -37,16 +47,6 @@ export default {
             }
             return false;
         }
-    },
-    data() {
-        return {
-            pageParam: {
-                pageNum: 1,
-                pageSize: 10,
-                total: 0
-            },
-            tableData: []
-        };
     },
     mounted() {
         this.handleQuery();

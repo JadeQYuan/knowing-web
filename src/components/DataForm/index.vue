@@ -94,16 +94,6 @@ export default {
         formItems: Array,
         rules: Object
     },
-    computed: {
-        btnName: function() {
-            return this.id ? "更新" : "创建";
-        }
-    },
-    mounted() {
-        if (this.id) {
-            this.getFunc(this.id).then(data => (this.model = data));
-        }
-    },
     data() {
         const model = {};
         this.formItems.forEach(item => {
@@ -114,6 +104,16 @@ export default {
             }
         });
         return { model };
+    },
+    computed: {
+        btnName: function() {
+            return this.id ? "更新" : "创建";
+        }
+    },
+    mounted() {
+        if (this.id) {
+            this.getFunc(this.id).then(data => (this.model = data));
+        }
     },
     methods: {
         submit() {

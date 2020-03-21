@@ -11,6 +11,12 @@ import { getInfo } from "@/api/note";
 
 export default {
     name: "NoteView",
+    components: {
+        MdEditor
+    },
+    props: {
+        id: String
+    },
     data() {
         return {
             model: {
@@ -20,11 +26,8 @@ export default {
             }
         };
     },
-    components: {
-        MdEditor
-    },
     mounted() {
-        getInfo(this.$route.params.id).then(data => {
+        getInfo(this.id).then(data => {
             this.model = data;
         });
     }

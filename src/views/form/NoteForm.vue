@@ -18,10 +18,8 @@ import { addNote, getInfo, updateNote } from "@/api/note";
 export default {
     name: "NoteForm",
     components: { DataForm },
-    computed: {
-        id() {
-            return this.$route.params.id;
-        }
+    props: {
+        id: String
     },
     data() {
         return {

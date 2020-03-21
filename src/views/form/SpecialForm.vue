@@ -18,10 +18,8 @@ import { addSpecial, getInfo, updateSpecial } from "@/api/special";
 export default {
     name: "NoteForm",
     components: { DataForm },
-    computed: {
-        id() {
-            return this.$route.params.id;
-        }
+    props: {
+        id: String
     },
     data() {
         return {

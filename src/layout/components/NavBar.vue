@@ -80,13 +80,13 @@ import Login from "../../views/login/index";
 export default {
     name: "NavBar",
     components: { Login },
-    computed: mapState(["token", "user"]),
     data() {
         return {
             dialogTableVisible: false,
             query: ""
         };
     },
+    computed: mapState(["token", "user"]),
     methods: {
         home() {
             this.push("/");

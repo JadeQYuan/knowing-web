@@ -16,8 +16,8 @@ import { addTagCategory, getTagCategory, updateTagCategory } from "@/api/tag";
 
 export default {
     name: "TagCategoryForm",
-    props: ["id"],
     components: { DataForm },
+    props: ["id"],
     data() {
         return {
             insertFunc: addTagCategory,

@@ -16,11 +16,11 @@ import { addTag, getTagInfo, updateTag } from "@/api/tag";
 
 export default {
     name: "TagForm",
+    components: { DataForm },
     props: {
         id: String,
         tagCategoryList: Array
     },
-    components: { DataForm },
     data() {
         return {
             insertFunc: addTag,
