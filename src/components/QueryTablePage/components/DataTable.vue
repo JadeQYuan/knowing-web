@@ -60,15 +60,15 @@
 <script>
 export default {
     name: "DataTable",
-    props: {
-        columns: {
-            type: Array,
-            required: true
+    computed: {
+        data() {
+            return this.$parent.tableData;
         },
-        actions: Array,
-        data: {
-            type: Array,
-            required: true
+        columns() {
+            return this.$parent.tableColumns;
+        },
+        actions() {
+            return this.$parent.tableActions;
         }
     }
 };

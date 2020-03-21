@@ -23,10 +23,7 @@ export default {
             this.$emit("query");
         },
         handleReset() {
-            this.items.forEach(item => {
-                item.value = "";
-            });
-            this.$emit("query");
+            this.$emit("reset");
         }
     }
 };

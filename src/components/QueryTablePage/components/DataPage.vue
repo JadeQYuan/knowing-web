@@ -14,17 +14,17 @@
 <script>
 export default {
     name: "DataPage",
-    props: {
-        pageParam: Object
+    computed: {
+        pageParam() {
+            return this.$parent.pageParam;
+        }
     },
     methods: {
         handleSizeChange(val) {
-            this.pageParam.pageSize = val;
-            this.$emit("query");
+            this.$emit("size-change", val);
         },
         handleCurrentChange(val) {
-            this.pageParam.pageNum = val;
-            this.$emit("query");
+            this.$emit("current-change", val);
         }
     }
 };

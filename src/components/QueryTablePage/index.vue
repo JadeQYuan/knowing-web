@@ -1,8 +1,13 @@
 <template>
     <div>
-        <query-form v-if="queryShow" :items="queryItems" @query="handleQuery" />
-        <data-table :columns="tableColumns" :actions="tableActions" :data="tableData" />
-        <data-page :pageParam="pageParam" @query="handleQuery" />
+        <query-form
+            v-if="queryShow"
+            :items="queryItems"
+            @query="handleQuery"
+            @reset="handleReset"
+        />
+        <data-table />
+        <data-page @size-change="handleSizeChange" @current-change="handleCurrentChange" />
     </div>
 </template>
 
@@ -53,6 +58,23 @@ export default {
     },
     methods: {
         handleQuery() {
+            this.query();
+        },
+        handleReset() {
+            this.items.forEach(item => {
+                item.value = "";
+            });
+            this.query();
+        },
+        handleCurrentChange(current) {
+            this.pageParam.pageNum = current;
+            this.query();
+        },
+        handleSizeChange(size) {
+            this.pageParam.pageSize = size;
+            this.query();
+        },
+        query() {
             let { pageNum, pageSize } = this.pageParam;
             let params = { pageNum, pageSize };
             if (this.queryItems) {
@@ -64,7 +86,7 @@ export default {
             }
             this.queryFunc(params).then(data => {
                 this.tableData = data.list;
-                this.pageParam.total = data.total;
+                this.pageParam.total = Number(data.total);
             });
         }
     }
